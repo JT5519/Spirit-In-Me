@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - aim
+  - door
+  - shotFired
+  - wall
+  - light
+  - floor
+  - stair
+  - ball
+  - main door
+  - main door 2
+  - door 2
+  - shutter
+  - first floor
+  - penguinLook
+  - noPenguinLook
+  - bullet
+  - topBlocker
+  - Container
+  - Demon
+  - cornerTrigs
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - spiritLayer
+  - boundaryLayer
+  - transparencyLayer
+  - demonHitLayer
+  - bulletLayer
+  - tempo
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
