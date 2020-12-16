@@ -18,7 +18,7 @@ The playable link above is a GitHub static page of a [separate repo](https://git
 
 # Game Details
 * Survival/Action horror game
-* You play as a hunter of supernatural entities that also has a special ability to leave their physical body as a spirit and beat the shit out of supernatural entities
+* Play as a hunter of supernatural entities that also has a special ability to leave their physical body as a spirit and beat the shit out of supernatural entities
 * 20 minutes of story driven gameplay 
 * A challenging enemy AI 
 * Significant exploration and mystery components 
