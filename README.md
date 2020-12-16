@@ -21,5 +21,5 @@ The playable link above is a GitHub static page of a [separate repo](https://git
 * You play as a hunter of supernatural entities that also has a special ability to leave their physical body as a spirit and beat the shit out of supernatural entities
 * 20 minutes of story driven gameplay 
 * A challenging enemy AI 
-* Exploration and mystery components that are essential to solve to beat the game
-* Freedom to free roam
+* Significant exploration and mystery components 
+* Free roam 
