@@ -23,3 +23,13 @@ The playable link above is a GitHub static page of a [separate repo](https://git
 * A challenging enemy AI 
 * Significant exploration and mystery components 
 * Free roam 
+
+<img src="Snaps/1.png" width="500" alt="boo">
+<img src="Snaps/2.png" width="500" alt="boo">
+<img src="Snaps/3.png" width="500" alt="boo">
+<img src="Snaps/4.png" width="500" alt="boo">
+
+## Some other games by me
+* [FPPPS - An FPS game](https://github.com/JT5519/First-FPS)
+* [H.A.B.R.O.S.I.P - HyperActive Ball Rolls On a Seizure Inducing Platform](https://github.com/JT5519/Roller-Madness)
+* [Solar System Model](https://github.com/JT5519/Solar-System)
