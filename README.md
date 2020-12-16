@@ -12,7 +12,7 @@ The playable link above is a GitHub static page of a [separate repo](https://git
 # Difference between the original size game and reduced size game
 * Lightmap size reduced from 1024 to 256
 * Lightmap resolution reduced from 20 to 10 (reduced size quite a bit)
-* Start Menu background music was removed (a long track that was on loop)
+* Start Menu background music removed (a long track that was on loop)
 * Car game object removed from the garage (high poly asset, advisable to remove such assets that are only for aesthetics)
 * Toy truck from the play room were removed (another high poly asset)
 
