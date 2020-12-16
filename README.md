@@ -1,5 +1,5 @@
 # Spirit-In-Me
-Click [here](https://jt5519.github.io/Spirit-In-Me-Game/index.html) to play the game on a GitHub static page! Read below for an issue I faced while creating the page, would appreciate a better solution.
+Click [here](https://jt5519.github.io/Spirit-In-Me-Game/index.html) to play the game on a GitHub static page! Read below for an issue I faced while creating the page, would appreciate a better solution.  (Recomended screen resolution: 1920 x 1080) 
 
 # Git LFS vs GitHub Static Page issue
 
