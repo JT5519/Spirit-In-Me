@@ -14,7 +14,7 @@ The playable link above is a GitHub static page of a [separate repo](https://git
 * Lightmap resolution reduced from 20 to 10 (reduced size quite a bit)
 * Start Menu background music removed (a long track that was on loop)
 * Car game object removed from the garage (high poly asset, advisable to remove such assets that are only for aesthetics)
-* Toy truck from the play room were removed (another high poly asset)
+* Toy truck from the play room removed (another high poly asset)
 
 # Game Details
 * Survival/Action horror game
