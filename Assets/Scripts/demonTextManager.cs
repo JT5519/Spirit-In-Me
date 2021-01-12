@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*This script is responsible for handling the players dialogues in phase2 when they see the different demon writings on the walls.
+  The player can come across the writings in any possible order and depending on that, the dialogues must change to accomodate for past 
+  texts already read, to make the game seem realistic.*/
 public class demonTextManager : MonoBehaviour
 {
     public StoryController storyController;
     Coroutine routineControl;
-
-    /*core*/
+    /*Every static variable corresponds to one of the demon texts. Each demon text (textmesh object) has a trigger area in which the dialogue for that text will trigger.
+      For the dialogue to begin, the player needs to be in that texts trigger and monologuing must be false. So when trigger is entered, the static variable is 1, if the
+      player leaves this trigger before its dialogue begins, the variable is set back to 0. Once the dialogue for a particular text begins, the variable is set to 2 and 
+      no longer switches back to 1 or 0. So 0/1 is to check inside or outside trigger, and as long as the player is not making a dialogue from a previously visited text
+      (monologuing set to false), the current texts dialogue will begin. See trigHandler.cs for trigger details*/
+    /*core (these texts must be read for story progression)*/
     public static int queen;
     public static int lily;
     public static int adam;
@@ -17,16 +23,16 @@ public class demonTextManager : MonoBehaviour
     public static int borrowPengu;
     /*core*/
 
-    /*inferences*/
+    /*inferences (deduced from reading texts)*/
     public static int demonKnown;
     public static int victimKnown;
     /*inferences*/
 
     /*optional*/
     public static int leave;
-    public static int balls;
-    public static int kill;    
-    public static int knock;
+    public static int balls; //innuendo
+    public static int kill;
+    public static int knock; //jumpscare knock on the bathroom door
     /*optional*/
 
     private void Awake()
@@ -49,9 +55,9 @@ public class demonTextManager : MonoBehaviour
     {
         if (trigHandler.doneWithFirst == 2 && !StoryController.monologuing)
         {
-            /*demon realized*/
+            /*conditions for player to realize who the demon is. All core texts must be read for this*/
             if (queen == 2 && adam == 2 && theFirst == 2 && lily == 2 && borrowPengu == 2 && balconyLily == 2 && balconyLisa == 2 && balls == 2
-                && leave==2 && knock==3 && demonKnown ==0)
+                && leave == 2 && knock == 3 && demonKnown == 0)
             {
                 demonKnown = 1;
                 StoryController.monologuing = true;
@@ -75,33 +81,32 @@ public class demonTextManager : MonoBehaviour
                 dQ.Enqueue("No..killing your own family and then killing yourself...makes your soul tainted enough..");//16
                 dQ.Enqueue("To become a demon....Lilith plans to make Elizabeth a demon!");//17
                 dQ.Enqueue("Well...time to foil a demons plans..");//18
-                               //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18   (total = 96 seconds)
-                float[] times = {5,3,6,5,5,8,4,6,4,6, 5 ,5 ,5 ,5 ,8 ,8 ,5 ,5 };
+                                                                   //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18   (total = 96 seconds)
+                float[] times = { 5, 3, 6, 5, 5, 8, 4, 6, 4, 6, 5, 5, 5, 5, 8, 8, 5, 5 };
                 routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ, times));
                 StartCoroutine(waitForDialogueListEnd(98));
             }
-            /*demon realized*/
 
-            /*demon requirements*/
+            /*cores*/
             else if (queen == 1)
             {
                 StoryController.monologuing = true;
                 queen = 2;
                 Queue<string> dQ = new Queue<string>();
-                float[] times = {5,7,3};
-                if(lily == 2)
+                float[] times = { 5, 7, 3 };
+                if (lily == 2)
                 {
                     dQ.Enqueue("Does Lily serve some demon queen?..");
                     dQ.Enqueue("..Is this the same queen being referenced by the chess board..?");
                     dQ.Enqueue("Intriguing..");
                 }
-                else if(lily == 0)
+                else if (lily == 0)
                 {
                     dQ.Enqueue("Does the demon serve some queen?..");
                     dQ.Enqueue("..Is this the same queen being referenced by the chess board..?");
                     dQ.Enqueue("Intriguing..");
                 }
-                routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ,times));
+                routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ, times));
                 StartCoroutine(waitForDialogueListEnd(17));
             }
             else if (adam == 1)
@@ -109,7 +114,7 @@ public class demonTextManager : MonoBehaviour
                 StoryController.monologuing = true;
                 adam = 2;
                 Queue<string> dQ = new Queue<string>();
-                float[] times = {10,7,8};
+                float[] times = { 10, 7, 8 };
                 dQ.Enqueue("Adam's family?..Never seen that show...");
                 dQ.Enqueue("Perhaps a reference to the biblical adam...");
                 dQ.Enqueue("That adams family....I don't like where this is going...");
@@ -133,7 +138,7 @@ public class demonTextManager : MonoBehaviour
                 StoryController.monologuing = true;
                 lily = 2;
                 Queue<string> dQ = new Queue<string>();
-                float[] times = {0,0,0,0,0};
+                float[] times = { 0, 0, 0, 0, 0 };
                 int arraySize = 0;
                 float totalTime = 0;
                 if (victimKnown == 2 && balconyLily == 2 && balconyLisa == 2)
@@ -190,18 +195,18 @@ public class demonTextManager : MonoBehaviour
                     t[i] = times[i];
                 }
                 routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ, t));
-                StartCoroutine(waitForDialogueListEnd(totalTime+2));
+                StartCoroutine(waitForDialogueListEnd(totalTime + 2));
             }
-            /*demon requirements*/
+            /*cores*/
 
-            /*victim requirements*/
+            /*to realize who the victim is*/
             else if (borrowPengu == 1)
             {
                 StoryController.monologuing = true;
                 borrowPengu = 2;
                 victimKnown = 2;
                 Queue<string> dQ = new Queue<string>();
-                float[] times = {0,0,0,0,0,0,0};
+                float[] times = { 0, 0, 0, 0, 0, 0, 0 };
                 int arraySize = 0;
                 float totalTime = 0;
                 if (balconyLisa == 2 && balconyLily == 2 && lily == 2)
@@ -272,7 +277,7 @@ public class demonTextManager : MonoBehaviour
                     times[5] = 5;
                     arraySize = 6;
                 }
-                else if (balconyLisa == 0 && lily==0)
+                else if (balconyLisa == 0 && lily == 0)
                 {
                     dQ.Enqueue("The penguin belongs to Lisa?...");
                     dQ.Enqueue("Goddamn!...Lisa....Liza...Elizabeth?!");
@@ -295,11 +300,11 @@ public class demonTextManager : MonoBehaviour
                     t[i] = times[i];
                 }
                 routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ, t));
-                StartCoroutine(waitForDialogueListEnd(totalTime+2));
+                StartCoroutine(waitForDialogueListEnd(totalTime + 2));
             }
-            /*victim requirements*/
+            /*to realize who the victim is*/
 
-            /*extra*/
+            /*extras*/
             else if (balconyLily == 1)
             {
                 StoryController.monologuing = true;
@@ -337,7 +342,7 @@ public class demonTextManager : MonoBehaviour
                     t = 5;
                 }
                 StartCoroutine(storyController.dialoguePush(s, t));
-                StartCoroutine(waitForDialogueEnd(t+2));
+                StartCoroutine(waitForDialogueEnd(t + 2));
             }
             else if (balconyLisa == 1)
             {
@@ -376,59 +381,60 @@ public class demonTextManager : MonoBehaviour
                     t = 5;
                 }
                 StartCoroutine(storyController.dialoguePush(s, t));
-                StartCoroutine(waitForDialogueEnd(t+2));
+                StartCoroutine(waitForDialogueEnd(t + 2));
             }
-            else if(balls == 1)
+            else if (balls == 1)
             {
                 StoryController.monologuing = true;
                 balls = 2;
                 string s = "I hope the demon meant the football...";
                 float t = 10f;
                 StartCoroutine(storyController.dialoguePush(s, t));
-                StartCoroutine(waitForDialogueEnd(t+2));
+                StartCoroutine(waitForDialogueEnd(t + 2));
             }
-            else if(kill == 1 && borrowPengu == 2)
+            else if (kill == 1 && borrowPengu == 2)
             {
                 StoryController.monologuing = true;
                 kill = 2;
                 string s = "Cool..";
                 float t = 4f;
                 StartCoroutine(storyController.dialoguePush(s, t));
-                StartCoroutine(waitForDialogueEnd(t+2));
+                StartCoroutine(waitForDialogueEnd(t + 2));
             }
-            else if(leave == 1)
+            else if (leave == 1)
             {
                 StoryController.monologuing = true;
                 leave = 2;
                 string s = "A MUTUAL FEELING DEMON!!";
                 float t = 4f;
                 StartCoroutine(storyController.dialoguePush(s, t));
-                StartCoroutine(waitForDialogueEnd(t+2));
+                StartCoroutine(waitForDialogueEnd(t + 2));
             }
-            else if(knock == 2)
+            else if (knock == 2) //bathroom jump scare
             {
                 StoryController.monologuing = true;
                 knock = 3;
                 Queue<string> dQ = new Queue<string>();
-                float[] times = {5,5};
+                float[] times = { 5, 5 };
                 dQ.Enqueue("GODDAMIT!!");
                 dQ.Enqueue("This demon is toying with me hard...");
                 routineControl = StartCoroutine(storyController.dialogueQueuePush(dQ, times));
                 StartCoroutine(waitForDialogueListEnd(12));
             }
-            /*extra*/
+            /*extras*/
         }
     }
+    //wait before setting monologuing back to false
     IEnumerator waitForDialogueEnd(float time)
     {
-        yield return new WaitForSeconds(time+0.1f);
+        yield return new WaitForSeconds(time + 0.1f);
         StoryController.monologuing = false;
     }
     IEnumerator waitForDialogueListEnd(float time)
     {
-        yield return new WaitForSeconds(time+0.1f);
+        yield return new WaitForSeconds(time + 0.1f);
         StopCoroutine(routineControl);
-        storyController.restoreCounter();        
+        storyController.restoreCounter();
         StoryController.monologuing = false;
     }
 }

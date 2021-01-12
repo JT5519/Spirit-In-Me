@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*script to handle player movement in human form*/
 public class moveScript : MonoBehaviour
 {
+    //character controller of the player
     CharacterController cc;
     private float moveSpeed = 20.0f;
     public Transform ghost;
     public float gravity = -9.8f;
     public float doorForce = 1.0f;
-    // Start is called before the first frame update
     void Awake()
     {
         cc = gameObject.GetComponent<CharacterController>();
@@ -17,18 +17,18 @@ public class moveScript : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        
-        if (hit.collider.tag=="door")
+        //wake up door rigidbody 
+        if (hit.collider.tag == "door")
         {
             if (hit.gameObject.name != "mainDoor")
             {
                 hit.gameObject.GetComponent<Rigidbody>().WakeUp();
-                
             }
         }
-        if (hit.collider.tag=="ball")
+        //kick the football 
+        if (hit.collider.tag == "ball")
         {
-            hit.rigidbody.AddForce(-hit.normal*10, ForceMode.Impulse);
+            hit.rigidbody.AddForce(-hit.normal * 10, ForceMode.Impulse);
         }
     }
 
@@ -37,6 +37,7 @@ public class moveScript : MonoBehaviour
     {
         if (StoryController.moveEnabled)
         {
+            //left shift to move faster
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveSpeed = 50f;
@@ -56,6 +57,7 @@ public class moveScript : MonoBehaviour
             }
             if (front != 0f || sides != 0f)
             {
+                //turn player towards movement direction. In fps mode, follow.cs handles the turning so no need to do it here.
                 if (!follow.fpsMode && transform.rotation != ghost.rotation)
                 {
                     transform.rotation = ghost.rotation;
@@ -63,6 +65,7 @@ public class moveScript : MonoBehaviour
                 cc.Move(Vector3.Normalize(ghost.forward * front + ghost.right * sides + ghost.up * down)
                     * Time.deltaTime * moveSpeed);
             }
+            //controller and player must be together
             if (ghost.position != transform.position)
             {
                 ghost.position = transform.position;

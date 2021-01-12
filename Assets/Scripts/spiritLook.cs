@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//script to control spirit looking
 public class spiritLook : MonoBehaviour
 {
     //cam control
@@ -9,7 +9,7 @@ public class spiritLook : MonoBehaviour
     public Transform SpiritVTP;
     private Transform Cam;
     //rotation control
-    Quaternion xRot,yRot;
+    Quaternion xRot, yRot;
     //mouse parameters
     public float sensitivity = 1.0f;
     void Awake()
@@ -18,7 +18,7 @@ public class spiritLook : MonoBehaviour
         yRot = transform.localRotation;
         xRot = SpiritVTP.localRotation;
     }
-    private void OnEnable()
+    private void OnEnable() //everytime the spirit is instantiated, camera position, rotation and parent must be initialized
     {
         Cam.position = CamRef.position;
         Cam.rotation = CamRef.rotation;
@@ -27,6 +27,7 @@ public class spiritLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //looking allowed only if move is enabled
         if (StoryController.moveEnabled)
         {
             float xrot = 0f, yrot = 0f;
@@ -34,6 +35,7 @@ public class spiritLook : MonoBehaviour
             {
                 yrot = sensitivity * Input.GetAxis("Mouse X");
             }
+            //inversion set by invertY 
             if (Input.GetAxis("Mouse Y") != 0f)
             {
                 xrot = -1 * MainMenuManager.invertY * sensitivity * Input.GetAxis("Mouse Y");

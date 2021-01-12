@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*script works in tandem with demonTextManager.cs. It changles the static variable values based on trigger entry and exit*/
 public class trigHandler : MonoBehaviour
 {
     MeshRenderer textMesh;
@@ -14,7 +14,7 @@ public class trigHandler : MonoBehaviour
     {
         textMesh = GetComponentInChildren<MeshRenderer>();
     }
-    IEnumerator waitForMonologue()
+    IEnumerator waitForMonologue() //coroutine to wait for initial monologue to finish before investigation begins
     {
         yield return new WaitForSeconds(25f);
         StoryController.demonTrails = 3;
@@ -23,16 +23,16 @@ public class trigHandler : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player" && textMesh.isVisible)
+        if (other.tag == "Player" && textMesh.isVisible)
         {
-            if(doneWithFirst==0 && !StoryController.monologuing)
+            if (doneWithFirst == 0 && !StoryController.monologuing) //if monologue not done, begin monologue
             {
                 StoryController.monologuing = true;
                 doneWithFirst = 1;
                 StoryController.demonTrails = 1;
                 StartCoroutine(waitForMonologue());
             }
-            else if(doneWithFirst == 2)
+            else if (doneWithFirst == 2)
             {
                 if (gameObject.name == "queenTrig" && demonTextManager.queen == 0)
                     demonTextManager.queen = 1;
@@ -59,11 +59,11 @@ public class trigHandler : MonoBehaviour
             }
         }
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other) //player could be inside a trigger before monologuing of previous trigger ends, onTriggerEnter not enough
     {
         if (other.tag == "Player" && textMesh.isVisible)
         {
-            if (doneWithFirst == 0 && !StoryController.monologuing)
+            if (doneWithFirst == 0 && !StoryController.monologuing) //if monologue not done, begin monologue
             {
                 StoryController.monologuing = true;
                 doneWithFirst = 1;
@@ -99,9 +99,9 @@ public class trigHandler : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            if(doneWithFirst == 2)
+            if (doneWithFirst == 2)
             {
                 if (gameObject.name == "queenTrig" && demonTextManager.queen == 1)
                     demonTextManager.queen = 0;

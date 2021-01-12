@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//trigger to begin penguin advance sequence
 public class penguinTurnAndBurn : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)

@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class StoryController : MonoBehaviour
 {
-    private int dialogueCounter = 0;
-    private int tipCounter = 0;
-    private int demonDialogueCounter = 0;
+    private int dialogueCounter = 0; //to track number of player dialogues being said
+    private int tipCounter = 0; //to track number of tips being given
+    private int demonDialogueCounter = 0; //to track number of demon dialogues being said
+    //coroutine control variables
     private Coroutine routineControl;
     private Coroutine examineRoutineControl;
     private Coroutine demonRoutine;
@@ -15,36 +16,35 @@ public class StoryController : MonoBehaviour
     private Coroutine exchangeRoutine;
     private Coroutine theLastCoroutine;
     private bool dialogueBegun;
-    //private bool pauseStory = false;
 
     public static int saltCollected; //check if salt was collected 
     public static int saltRemind; //remind to collect salt  
-    public static int fatalError;
+    public static int fatalError; //did not collect salt, now penguin will murder your ass
     public static int visitedKitchen; //0 = not visited 1 = visited first time 2 = multiple times 
-    public static bool inExamineRange;
-    public static bool imageActive;
-    public static bool firstTime;
-    public static bool bedroomEntry;
-    public static bool bedroomExit;
-    public static bool bedroomReentry;
-    public static int hitFirstFloorColliders;
+    public static bool inExamineRange; //range where chessboard can be examined
+    public static bool imageActive; //chessboard image is currently active
+    public static bool firstTime; //examined the chessboard the first time
+    public static bool bedroomEntry; //player entered chess board bedroom the first time
+    public static bool bedroomExit; //exited the bedroom
+    public static bool bedroomReentry; //re-enered bedroom
+    public static int hitFirstFloorColliders;  //to initiate dialogue when player tries to go to the first floor before completing chess sequence
 
-    public static int sawPenguin;
-    public static int  playedOnce;
-    public static int playedTwice;
-    public static int playerHasSeenDisapearance;
-    public static int playerTurned;
-    public static int hunterBeenHunted;
+    public static int sawPenguin; //looked at penguin, make comment
+    public static int playedOnce; //penguin made first sound
+    public static int playedTwice; //penguin made two sounds
+    public static int playerHasSeenDisapearance; //player noticed penguin vanishing
+    public static int playerTurned; //turn player to look at penguin
+    public static int hunterBeenHunted; //player has been killed
 
     public static bool moveEnabled;  // player/spirit motion and look
-    public static bool shootEnabled;
-    public static bool shootDisabled;
-    public static bool allowDialogueExit;
-    public static bool monologuing;
-
+    public static bool shootEnabled; //player can shoot 
+    public static bool shootDisabled; //player can aim but not shoot
+    public static bool allowDialogueExit; //allow exiting a monologue midway
+    public static bool monologuing; //dialogue sequence going on, story should not progress during it 
+    //tip control vairables
     public static int giveTip1;
     public static int examineTip;
-    public static int waitForInstructionFinish;
+    public static int waitForInstructionFinish; //first time player transforms to spirit mode
 
     //dialogues and tip lists 
     private List<string> dialogueList = new List<string>();
@@ -68,20 +68,21 @@ public class StoryController : MonoBehaviour
     public Text end2;
     public Text end3;
     public Text end4;
-
+    //secondary camera for dramatic shots
     public Camera cinematicCam;
     private Animator camAn;
 
-    public GameObject playerBody;
-    public GameObject playerHTP;
-    public GameObject playerVTP;
-    public GameObject playerFpsRef;
-    public GameObject penguinBody;
-    public GameObject penguinPlaceHolder;
-    public static int penguinApproach;
+    public GameObject playerBody; //player body 
+    public GameObject playerHTP; //player horizontal controller
+    public GameObject playerVTP; //vertical controller
+    public GameObject playerFpsRef; //position for first person camera 
+    public GameObject penguinBody;  //penguin toy
+    public GameObject penguinPlaceHolder; //location of penguin transfrom
+    public static int penguinApproach; //to enable penguin advance towards player 
 
-    public static int demonTrails;
-    public static int demonWarning;
+    public static int demonTrails; //investigating demon trails begins, see demonTextManager.cs
+    public static int demonWarning; //before demon appears, a head's up
+    //demon appearance variables
     public static int lilithAppear;
     public static int lilithDisappear;
     public static int demonDiedInRoom;
@@ -97,7 +98,10 @@ public class StoryController : MonoBehaviour
     public Transform teddybear;
     public Collider chairCollider;
     public Collider bedCollider;
+    //to change the lighting during demon fight scene 
     public LightMapSwitcher switchLighting;
+
+    //demon appreance vairables again
     public Transform demonSpawnPoint;
     public Transform demonEndPoint;
     public Transform demonEndPoint2;
@@ -109,13 +113,17 @@ public class StoryController : MonoBehaviour
     public GameObject insideTrigger;
     public GameObject outsideTrigger;
 
+    //play restriciting elements
     public GameObject firstFloorBlockers;
     private bool firstFloorBlockersDestroyed;
     public GameObject demonText;
     public Transform checkPoint;
     public static int respawn;
 
-    //speedup ifs
+    /*the story is divided into three phases. It makes the logical coding more efficient by saving vital time in the update cycle with uneccesarry checks eliminated.
+     But also storywise, phase1 is pure exploration driven and getting used to the player in human form. Phase 2 is when player can use their ability to go into spirit mode
+     and get used to the spirit mode controls of flying around through walls etc. Getting used to player and spirit mode is vital for phase 3 which is combat with the demon,
+     where skill in both modes are necessary for victory.*/
     private bool phase1;
     private bool phase2;
     private bool phase3;
@@ -171,7 +179,7 @@ public class StoryController : MonoBehaviour
         demonTextDestroyed = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        phase1 = true;
+        phase1 = true; //phase 1 begins
         phase2 = false;
         phase3 = false;
         demonText.SetActive(false);
@@ -187,8 +195,8 @@ public class StoryController : MonoBehaviour
         camAn = cinematicCam.GetComponent<Animator>();
         //dialogue list 
         //0 to 5
-        dialogueList.Add("Well here we go! Time to investigate this house..."); 
-        dialogueList.Add("I'm low on salt...I should check the kitchen to replenish my ammo."); 
+        dialogueList.Add("Well here we go! Time to investigate this house...");
+        dialogueList.Add("I'm low on salt...I should check the kitchen to replenish my ammo.");
         dialogueList.Add("Damn..I forgot the salt!");
         dialogueList.Add("Hmmm...this room feels cold");
         dialogueList.Add("That came from the bedroom!...");
@@ -329,33 +337,7 @@ public class StoryController : MonoBehaviour
         boardPanel.enabled = false;
         StartCoroutine(checkCamDone());
     }
-    void resetStaticVariables()
-    {
-        //Story controller static variables
 
-
-        //penguinController variables
-        penguinController.shootRays = false;
-        penguinController.makeSomeNoise = 0;
-        penguinController.canDisapear = 0;
-        penguinController.reAppear = 0;
-        penguinController.beginAdvance = 0;
-        penguinController.downGoesHunter = 0;
-
-        //inPenguinRoom
-        inPenguinRoom.inViewable = false;
-        inPenguinRoom.inRoom = false;
-        inPenguinRoom.camRoom = false;
-
-        //penguinAppear
-        penguinAppear.penguinGoneDestroyed = false;
-
-        //playerManager
-        playerManager.isSpirit = false;
-        playerManager.transformEnabled = false;
-        playerManager.Fenabled = true;
-        playerManager.becomeSpirit = false;
-}       
     void Update()
     {
         /*mouse cursor*/
@@ -372,7 +354,7 @@ public class StoryController : MonoBehaviour
         /*mouse cursor*/
 
         /*revisit chess set sequence begins*/
-        if (examineTip == 1)
+        if (examineTip == 1) //when in range, examine chessboard tip
         {
             examineTip = 2;
             examineRoutineControl = StartCoroutine(tipPush(tipList[1], 1000f));
@@ -390,7 +372,7 @@ public class StoryController : MonoBehaviour
             }
             examineTip = 0;
         }
-        if (imageActive == false && inExamineRange && Input.GetKeyDown(KeyCode.E))
+        if (imageActive == false && inExamineRange && Input.GetKeyDown(KeyCode.E)) //if examined, picture opened
         {
             imageActive = true;
             moveEnabled = false;
@@ -451,17 +433,17 @@ public class StoryController : MonoBehaviour
             /*salt sequence ends*/
 
             /*first floor block sequence begins*/
-            if(!firstTime && !firstFloorBlockersDestroyed)
+            if (!firstTime && !firstFloorBlockersDestroyed)
             {
                 firstFloorBlockersDestroyed = true;
                 Destroy(firstFloorBlockers);
             }
-            if(hitFirstFloorColliders == 1)
+            if (hitFirstFloorColliders == 1)
             {
                 hitFirstFloorColliders = 2;
                 routineControl = StartCoroutine(dialoguePush("I should explore the ground floor before going up..", 1000f));
             }
-            else if(hitFirstFloorColliders == 3)
+            else if (hitFirstFloorColliders == 3)
             {
                 hitFirstFloorColliders = 0;
                 if (routineControl != null)
@@ -498,7 +480,7 @@ public class StoryController : MonoBehaviour
                 StartCoroutine(tipPush(tipList[0], 6f));
             }
             /*bedroom sequence ends*/
-            
+
             /*penguin see sequence begins*/
             if (sawPenguin == 1)
             {
@@ -556,9 +538,6 @@ public class StoryController : MonoBehaviour
                 {
                     dQ.Enqueue(dialogueList[i]);
                 }
-
-                //5 secs wait, 20 secs turn, 13 secs advance (9 secs - 14m away, 12 secs - 8m)
-                //               1 2 3 4 5 6 7 8 9 10 11 12 13
                 float[] times = { 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 2, 3, 3 };
                 routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
                 penguinApproach = 4;
@@ -634,7 +613,7 @@ public class StoryController : MonoBehaviour
                     dQ.Enqueue(dialogueList[i]);
                 }
                 dQ.Enqueue("");
-                float[] times = { 4, 4 ,3};
+                float[] times = { 4, 4, 3 };
                 routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
                 waitForInstructionFinish = 4;
             }
@@ -652,7 +631,7 @@ public class StoryController : MonoBehaviour
             /*spirit intructions ends*/
 
             /*demon trails begin*/
-            if(demonTrails == 1)
+            if (demonTrails == 1)
             {
                 demonTrails = 2;
                 Queue<string> dQ = new Queue<string>();
@@ -660,10 +639,10 @@ public class StoryController : MonoBehaviour
                 {
                     dQ.Enqueue(dialogueList[i]);
                 }
-                float[] times = {3,5,4,5,5,3};
+                float[] times = { 3, 5, 4, 5, 5, 3 };
                 routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
             }
-            if(demonTrails == 3)
+            if (demonTrails == 3)
             {
                 StopCoroutine(routineControl);
                 dialogueCounter--;
@@ -674,7 +653,7 @@ public class StoryController : MonoBehaviour
                 monologuing = false;
                 demonTrails = 4;
             }
-            if(demonTrails == 5)
+            if (demonTrails == 5)
             {
                 demonTrails = 6;
                 StartCoroutine(switchToPhase3());
@@ -684,21 +663,21 @@ public class StoryController : MonoBehaviour
         /*phase2 ends*/
 
         /*phase3 begins*/
-        if(phase3 == true)
+        if (phase3 == true)
         {
             /*demon summon begins*/
-            if(respawn == 1)
+            if (respawn == 1)
             {
                 checkRoutines();
                 respawn = 2;
                 StartCoroutine(playerDeathByDemon());
             }
-            if(demonWarning == 1)
+            if (demonWarning == 1)
             {
                 demonWarning = 2;
                 StartCoroutine(preDemonSummon());
             }
-            else if(demonWarning == 3 && Input.GetKeyDown(KeyCode.E))
+            else if (demonWarning == 3 && Input.GetKeyDown(KeyCode.E))
             {
                 demonWarning = 4;
             }
@@ -711,12 +690,12 @@ public class StoryController : MonoBehaviour
                 lilithAppear = 2;
                 StartCoroutine(demonSummon());
             }
-            if(duringFightDialogues==1)
+            if (duringFightDialogues == 1)
             {
                 duringFightDialogues = 2;
                 exchangeRoutine = StartCoroutine(fightQuips(8, 5, 87, 4));
             }
-            else if(duringFightDialogues==3)
+            else if (duringFightDialogues == 3)
             {
                 duringFightDialogues = 4;
                 checkRoutines();
@@ -728,7 +707,7 @@ public class StoryController : MonoBehaviour
                 checkRoutines();
                 exchangeRoutine = StartCoroutine(fightQuips(10, 4, 89, 4));
             }
-            else if(duringFightDialogues ==7)
+            else if (duringFightDialogues == 7)
             {
                 duringFightDialogues = 8;
                 checkRoutines();
@@ -738,12 +717,12 @@ public class StoryController : MonoBehaviour
                 lilithDisappear = 2;
                 demonSound.Stop();
                 demonChaseScript.enabled = false;
-                if(demonDiedInRoom==1)
+                if (demonDiedInRoom == 1)
                 {
                     demonDiedInRoom = 2;
                     moveEnabled = false;
                 }
-                else if(demonDiedInRoom==0)
+                else if (demonDiedInRoom == 0)
                 {
                     demonMesh.enabled = false;
                     demonHTP.SetActive(false);
@@ -751,7 +730,7 @@ public class StoryController : MonoBehaviour
                     demonHTP.transform.rotation = demonEndPoint2.rotation;
                     demonMesh.enabled = true;
                     demonHTP.SetActive(true);
-                    theLastCoroutine = StartCoroutine(beforeDemonGoByeBye());
+                    theLastCoroutine = StartCoroutine(beforeDemonGoByeBye()); //if demon died outside room only then this coroutine is required 
                 }
                 StartCoroutine(demonGoByeBye());
                 Destroy(cornerTrig);
@@ -761,14 +740,14 @@ public class StoryController : MonoBehaviour
         }
         /*phase3 ends*/
 
-        if(exitGame==true && Input.GetKeyDown(KeyCode.E))
+        if (exitGame == true && Input.GetKeyDown(KeyCode.E))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
-    IEnumerator restartScene()
+    IEnumerator restartScene() //if penguin kills you, game begins from the start
     {
         yield return new WaitForSeconds(3f);
         Destroy(camAn);
@@ -779,6 +758,8 @@ public class StoryController : MonoBehaviour
         deathObject.resetDeath();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    /*demon and player exchange dialogues during combat, this method ensures dialogues are in sync and not triggered during cutscenes.
+     This method is to be called before initiating a new dialogue during combat.*/
     void checkRoutines()
     {
         if (exchangeRoutine == null)
@@ -809,17 +790,18 @@ public class StoryController : MonoBehaviour
             hunterRoutine = null;
         }
     }
-    IEnumerator fightQuips(int demonIndex,float demonT,int hunterIndex,float hunterT)
+    IEnumerator fightQuips(int demonIndex, float demonT, int hunterIndex, float hunterT) //every quip exchange can be done using this method
     {
+        /*indexes are for dialogue list references and demonT and hunterT are for times for the dialogues*/
         demonRoutine = StartCoroutine(dialoguePush(demonDialogueList[demonIndex], demonT, true));
         yield return new WaitForSeconds(demonT);
         demonRoutine = null;
-        hunterRoutine = StartCoroutine(dialoguePush(dialogueList[hunterIndex],hunterT));
+        hunterRoutine = StartCoroutine(dialoguePush(dialogueList[hunterIndex], hunterT));
         yield return new WaitForSeconds(hunterT);
         hunterRoutine = null;
         exchangeRoutine = null;
     }
-    IEnumerator checkCamDone()
+    IEnumerator checkCamDone() //check if cinematic cam is done panning the first shot
     {
         yield return new WaitForSeconds(3.1f);
         cinematicCam.enabled = false;
@@ -827,20 +809,22 @@ public class StoryController : MonoBehaviour
         moveEnabled = true;
         StartCoroutine(dialoguePush(dialogueList[0], 5f));
     }
-    IEnumerator lookingAtPenguin()
+    IEnumerator lookingAtPenguin() //coroutine to look at penguin when it makes noise the second time
     {
-        yield return new WaitForSeconds(.5f);
-        while (!inPenguinRoom.inViewable)
+        yield return new WaitForSeconds(.5f); //delay between penguin noise and player reaction
+        while (!inPenguinRoom.inViewable) //player must be in room for them to react
             yield return new WaitForSeconds(2f);
-        StartCoroutine(dialoguePush(dialogueList[12], 2f));
-        yield return new WaitForSeconds(3f);
-        while (!inPenguinRoom.inViewable)
+        StartCoroutine(dialoguePush(dialogueList[12], 2f)); //reaction dialogue
+        yield return new WaitForSeconds(3f); //wait for 3 seconds before penguin makes second noise
+        while (!inPenguinRoom.inViewable) //wait until player is back in room, if they went out in these 3 seconds
             yield return new WaitForSeconds(2f);
-        penguinController.makeSomeNoise = 3;
+        penguinController.makeSomeNoise = 3; //second noise
+        /*Start of the cutscene, player control over character is disabled, character turns to face penguin and make reactionary comment*/
         moveEnabled = false;
         yield return new WaitForSeconds(0.5f);
+        //player turn sequence begins
         playerBody.transform.LookAt(penguinBody.transform);
-        playerBody.transform.eulerAngles = new Vector3(0, playerBody.transform.eulerAngles.y,0);
+        playerBody.transform.eulerAngles = new Vector3(0, playerBody.transform.eulerAngles.y, 0);
         playerTurned = 1;
         float time = 0f;
         Quaternion initPlayerRot = playerBody.transform.rotation;
@@ -855,6 +839,9 @@ public class StoryController : MonoBehaviour
         }
         playerHTP.transform.rotation = playerBody.transform.rotation;
         playerVTP.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //player turn sequence ends
+
+        //cinematic camera zooms onto penguin for dramatic effect. Also prevents any obstacles between third person camera and player from blocking the scene
         cinematicCam.enabled = true;
         cinematicCam.transform.SetParent(playerVTP.transform);
         camAn.SetTrigger("zoomIn");
@@ -868,8 +855,10 @@ public class StoryController : MonoBehaviour
         moveEnabled = true;
         cinematicCam.transform.parent = null;
     }
+    /*optional, only runs if player notices penguin disappearance*/
     IEnumerator notLookingAtPenguin()
     {
+        //same turn and zoom look at position where penguin was a moment ago!
         moveEnabled = false;
         playerBody.transform.LookAt(penguinPlaceHolder.transform);
         playerBody.transform.eulerAngles = new Vector3(0, playerBody.transform.eulerAngles.y, 0);
@@ -900,8 +889,10 @@ public class StoryController : MonoBehaviour
         cinematicCam.transform.parent = null;
         playerHasSeenDisapearance = 5;
     }
+    /*triggered once player exits Elizabeths room, player turns to see penguin outside the playroom now*/
     IEnumerator turnAndWatch()
     {
+        //player turns and zooms in
         moveEnabled = false;
         playerBody.transform.LookAt(penguinBody.transform);
         playerBody.transform.localEulerAngles = new Vector3(0, playerBody.transform.localEulerAngles.y, 0);
@@ -911,9 +902,9 @@ public class StoryController : MonoBehaviour
         Quaternion initPlayerVTPRot = playerVTP.transform.localRotation;
         while (playerHTP.transform.rotation != playerBody.transform.rotation && playerVTP.transform.localRotation != Quaternion.Euler(0, 0, 0))
         {
-            playerHTP.transform.rotation = Quaternion.Slerp(initPlayerHTPRot,initPlayerRot,time);
-            playerVTP.transform.localRotation = Quaternion.Slerp(initPlayerVTPRot,Quaternion.Euler(0, 0, 0),time);
-            time += 5*Time.deltaTime;
+            playerHTP.transform.rotation = Quaternion.Slerp(initPlayerHTPRot, initPlayerRot, time);
+            playerVTP.transform.localRotation = Quaternion.Slerp(initPlayerVTPRot, Quaternion.Euler(0, 0, 0), time);
+            time += 5 * Time.deltaTime;
             yield return null;
         }
         playerHTP.transform.rotation = playerBody.transform.rotation;
@@ -922,18 +913,22 @@ public class StoryController : MonoBehaviour
         cinematicCam.transform.SetParent(playerVTP.transform);
         camAn.SetTrigger("zoomIn");
         yield return new WaitForSeconds(2f);
+        //penguin approach begins at this point, see penguinController.cs
         penguinApproach = 3;
-        yield return new WaitForSeconds(37f);
+        yield return new WaitForSeconds(37f); //penguin approach takes 37 seconds always
         penguinApproach = 5;
         camAn.SetTrigger("zoomToFPS");
         yield return new WaitForSeconds(1f);
-        shootEnabled = true;
+        shootEnabled = true; //time to shoot penguin
         yield return null;
         cinematicCam.enabled = false;
     }
+    /*if player manages to not shoot penguin in time*/
     IEnumerator killPlayer()
     {
+        //player is still aiming but cannot shoot anymore
         shootDisabled = true;
+        //penguin murder sequenc begins, penguin turns player to itself
         playerHTP.transform.LookAt(penguinBody.transform);
         playerHTP.transform.localEulerAngles = new Vector3(0, playerHTP.transform.localEulerAngles.y, 0);
         playerVTP.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -941,33 +936,39 @@ public class StoryController : MonoBehaviour
         Quaternion initPlayerRot = playerBody.transform.rotation;
         Quaternion initPlayerHTProt = playerHTP.transform.rotation;
         Quaternion initFPSRot = playerFpsRef.transform.localRotation;
-        while (playerBody.transform.rotation!=playerHTP.transform.rotation && playerFpsRef.transform.localRotation != Quaternion.Euler(0, 0, 0))
+        while (playerBody.transform.rotation != playerHTP.transform.rotation && playerFpsRef.transform.localRotation != Quaternion.Euler(0, 0, 0))
         {
             playerBody.transform.rotation = Quaternion.Slerp(initPlayerRot, initPlayerHTProt, time);
-            playerFpsRef.transform.localRotation = Quaternion.Slerp(initFPSRot,Quaternion.Euler(0,0,0), time);
-            time +=Time.deltaTime;
+            playerFpsRef.transform.localRotation = Quaternion.Slerp(initFPSRot, Quaternion.Euler(0, 0, 0), time);
+            time += Time.deltaTime;
             yield return null;
         }
         playerBody.transform.rotation = playerHTP.transform.rotation;
         playerFpsRef.transform.localRotation = Quaternion.Euler(0, 0, 0);
         cinematicCam.enabled = true;
+        //camera back to zoomed in position
         camAn.SetTrigger("FpsToZoom");
         yield return new WaitForSeconds(1f);
         shootEnabled = false;
         shootDisabled = false;
+        //penguin set as parent of player game obect
         playerBody.transform.SetParent(playerHTP.transform);
         time = 0;
-        Vector3 goUp = new Vector3(0,Time.deltaTime, 0);
-        while(time<1f)
+        //penguin raised player off ground
+        Vector3 goUp = new Vector3(0, Time.deltaTime, 0);
+        while (time < 1f)
         {
             playerHTP.transform.position += goUp;
             time += Time.deltaTime;
             yield return null;
         }
+        //penguin does his thing, see penguinController.cs
         penguinController.downGoesHunter = 1;
     }
+    //if player kills penguin in time, phase 2 begins
     IEnumerator switchToPhase2()
     {
+        //86 second monologue from the player
         monologuing = true;
         yield return new WaitForSeconds(86f);
         StopCoroutine(routineControl);
@@ -976,12 +977,14 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
+        //player can now go into spirit mode, tip appears
         playerManager.transformEnabled = true;
         examineRoutineControl = StartCoroutine(tipPush(tipList[2], 1000f));
-        while(!playerManager.isSpirit)
+        while (!playerManager.isSpirit)
         {
             yield return null;
         }
+        //spirit mode controls are explained 
         demonText.SetActive(true);
         playerManager.transformEnabled = false;
         tipText.text = "";
@@ -993,7 +996,7 @@ public class StoryController : MonoBehaviour
         waitForInstructionFinish = 1;
         phase1 = false;
         phase2 = true;
-        while (StoryController.waitForInstructionFinish!=2)
+        while (StoryController.waitForInstructionFinish != 2)
         {
             yield return null;
         }
@@ -1005,19 +1008,21 @@ public class StoryController : MonoBehaviour
         yield return new WaitForSeconds(11f);
         waitForInstructionFinish = 5;
     }
-    IEnumerator switchToPhase3()
+    IEnumerator switchToPhase3() //phase 3 begins outside elizabeths room, before summoning the demon
     {
+        //monologuing controlled by other scripts, waiting until then
         yield return new WaitForSeconds(5f);
         moveEnabled = false;
         yield return new WaitForSeconds(93f);
         moveEnabled = true;
         yield return new WaitForSeconds(5f);
-        while(monologuing)
+        while (monologuing)
         {
             yield return null;
         }
+        //go back to human mode for summoning 
         monologuing = true;
-        StartCoroutine(dialoguePush(dialogueList[54],5));
+        StartCoroutine(dialoguePush(dialogueList[54], 5));
         yield return new WaitForSeconds(5f);
         playerManager.transformEnabled = true;
         examineRoutineControl = StartCoroutine(tipPush(tipList[3], 1000f));
@@ -1042,7 +1047,7 @@ public class StoryController : MonoBehaviour
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times = {7,5,3};
+        float[] times = { 7, 5, 3 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
         preDemonTrig.SetActive(true);
         yield return new WaitForSeconds(15f);
@@ -1056,6 +1061,7 @@ public class StoryController : MonoBehaviour
         phase3 = true;
         monologuing = false;
     }
+    //warnings before summoning demon, as demon AI is pretty challenging
     IEnumerator preDemonSummon()
     {
         moveEnabled = false;
@@ -1102,8 +1108,10 @@ public class StoryController : MonoBehaviour
         moveEnabled = true;
         monologuing = false;
     }
+    //demon ssummoning sequence
     IEnumerator demonSummon()
     {
+        //look towards center of room
         moveEnabled = false;
         referencePoint.position = playerBody.transform.position;
         referencePoint.LookAt(teddybear.position);
@@ -1113,24 +1121,26 @@ public class StoryController : MonoBehaviour
         Quaternion initPlayerHTPRot = playerHTP.transform.rotation;
         Quaternion initPlayerVTPRot = playerVTP.transform.localRotation;
         Quaternion referenceRotation = referencePoint.rotation;
-        while (playerBody.transform.rotation != referencePoint.rotation && playerHTP.transform.rotation != referencePoint.rotation && 
+        while (playerBody.transform.rotation != referencePoint.rotation && playerHTP.transform.rotation != referencePoint.rotation &&
             playerVTP.transform.localRotation != Quaternion.Euler(0, 0, 0))
         {
             playerBody.transform.rotation = Quaternion.Slerp(initPlayerRot, referenceRotation, time);
             playerHTP.transform.rotation = Quaternion.Slerp(initPlayerHTPRot, referenceRotation, time);
             playerVTP.transform.localRotation = Quaternion.Slerp(initPlayerVTPRot, Quaternion.Euler(0, 0, 0), time);
-            time +=Time.deltaTime;
+            time += Time.deltaTime;
             yield return null;
         }
         playerBody.transform.rotation = referencePoint.rotation;
         playerHTP.transform.rotation = referencePoint.rotation;
         playerVTP.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //zoom in using cinematic camera
         cinematicCam.transform.SetParent(playerVTP.transform);
         cinematicCam.enabled = true;
         camAn.SetTrigger("zoomIn");
         yield return new WaitForSeconds(2f);
         StartCoroutine(dialoguePush(dialogueList[58], 5));
         yield return new WaitForSeconds(5f);
+        //salt shooting sequence begins
         examineRoutineControl = StartCoroutine(tipPush(tipList[4], 1000));
         camAn.SetTrigger("zoomToFPS");
         yield return new WaitForSeconds(1f);
@@ -1141,7 +1151,7 @@ public class StoryController : MonoBehaviour
         bedCollider.enabled = false;
         chairCollider.enabled = false;
         bool d1 = false, d2 = false, d3 = false;
-        while(demonAppear.bulletHits!=4)
+        while (demonAppear.bulletHits != 4)
         {
             if (demonAppear.bulletHits == 1 && !d1)
             {
@@ -1174,6 +1184,7 @@ public class StoryController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         bedCollider.enabled = true;
         chairCollider.enabled = true;
+        //shooting sequence ends, look back at center
         playerHTP.transform.LookAt(teddybear.position);
         playerHTP.transform.localEulerAngles = new Vector3(0, playerHTP.transform.localEulerAngles.y, 0);
         playerVTP.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -1195,14 +1206,16 @@ public class StoryController : MonoBehaviour
         shootEnabled = false;
         shootDisabled = false;
         yield return new WaitForSeconds(3f);
+        //begin summoning dialogues, if you look up the LATIN i used, it wont be that scary 
         Queue<string> dQ = new Queue<string>();
         for (int i = 59; i < 67; i++)
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times = {5,5,10,10,4,4,10,10};
+        float[] times = { 5, 5, 10, 10, 4, 4, 10, 10 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
         yield return new WaitForSeconds(29.5f);
+        //changing lights. Requried switching lightmaps as well as lightprobes data. See LightMapSwitcher.cs
         switchLighting.SetToNight();
         yield return new WaitForSeconds(28.5f);
         StopCoroutine(routineControl);
@@ -1211,46 +1224,49 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
+        //demon ascends from the living room (ironic)
         demonHTP.SetActive(true);
         demonHTP.transform.position = demonSpawnPoint.position;
         demonHTP.transform.rotation = demonSpawnPoint.rotation;
         time = 0;
-        while (Vector3.Distance(demonHTP.transform.position,demonEndPoint.position)>0.3f)
+        while (Vector3.Distance(demonHTP.transform.position, demonEndPoint.position) > 0.3f)
         {
             demonHTP.transform.position = Vector3.Slerp(demonSpawnPoint.position, demonEndPoint.position, time);
-            time += 0.5f*Time.deltaTime;
+            time += 0.5f * Time.deltaTime;
             yield return null;
         }
         demonHTP.transform.position = demonEndPoint.position;
         Quaternion demonEndPointRotation = demonEndPoint.rotation;
+        //demon looks at you
         demonEndPoint.LookAt(playerBody.transform);
         demonEndPoint.eulerAngles = new Vector3(demonEndPoint.eulerAngles.x, demonEndPoint.eulerAngles.y, 0);
         Quaternion initDemonRotation = demonHTP.transform.rotation;
         time = 0;
         yield return new WaitForSeconds(2f);
-        while(demonHTP.transform.rotation!=demonEndPoint.rotation && time<0.95f)
+        while (demonHTP.transform.rotation != demonEndPoint.rotation && time < 0.95f)
         {
             demonHTP.transform.rotation = Quaternion.Slerp(initDemonRotation, demonEndPoint.rotation, time);
-            time += 0.5f*Time.deltaTime;
+            time += 0.5f * Time.deltaTime;
             yield return null;
         }
         demonHTP.transform.rotation = demonEndPoint.rotation;
         demonEndPoint.rotation = demonEndPointRotation;
         yield return new WaitForSeconds(.5f);
+        //interaction begins
         Queue<string> demonQ = new Queue<string>();
         for (int i = 0; i < 3; i++)
         {
             demonQ.Enqueue(demonDialogueList[i]);
         }
-        float[] demonTimes = {5,5,4};
-        StartCoroutine(dialogueQueuePush(demonQ, demonTimes,true,true));
+        float[] demonTimes = { 5, 5, 4 };
+        StartCoroutine(dialogueQueuePush(demonQ, demonTimes, true, true));
         yield return new WaitForSeconds(14.5f);
         dQ = new Queue<string>();
         for (int i = 67; i < 71; i++)
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times2 = {4,5,5,5};
+        float[] times2 = { 4, 5, 5, 5 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times2));
         yield return new WaitForSeconds(7f);
         demonSound.Play();
@@ -1266,37 +1282,43 @@ public class StoryController : MonoBehaviour
         cinematicCam.enabled = false;
         cinematicCam.transform.SetParent(null);
         demonChaseScript.enabled = true;
+        //fight begins
         moveEnabled = true;
         playerManager.transformEnabled = true;
         monologuing = false;
+        //cleanup of remaining triggers in the house
         if (!chessTrigDestroyed)
         {
             chessTrigDestroyed = true;
             Destroy(chessTrig);
         }
-        if(!demonTextDestroyed)
+        if (!demonTextDestroyed)
         {
             demonTextDestroyed = true;
             Destroy(demonText);
         }
         outsideTrigger.SetActive(true);
     }
+    //if demon kills player, demon grabs players soul and takes them to hell in a 180 degree nosedive straight into the ground
     IEnumerator playerDeathByDemon()
     {
+        //stop movement of player and demon
         moveEnabled = false;
         demonChaseScript.enabled = false;
         demonChaseScript.hitTimer = 0;
         demonChaseScript.specialHitTimer = 0;
+        //once player health hits 0, playerManager ensures player is in spirit mode, for cutscene begining
         while (!playerManager.isSpirit)
             yield return null;
+        //begin cutscene
         GameObject spirit = GameObject.Find("SpiritHTP(Clone)");
         Transform spiritVTP = spirit.transform.Find("SpiritVTP");
         Transform demonHellPoint = spirit.transform.Find("DemonPosition");
-        if(spiritVTP.localRotation!=Quaternion.Euler(0,0,0))
+        if (spiritVTP.localRotation != Quaternion.Euler(0, 0, 0))
         {
             Quaternion initSpiritLocalRotation = spiritVTP.localRotation;
             float time = 0;
-            while(spiritVTP.localRotation != Quaternion.Euler(0, 0, 0))
+            while (spiritVTP.localRotation != Quaternion.Euler(0, 0, 0))
             {
                 spiritVTP.localRotation = Quaternion.Slerp(initSpiritLocalRotation, Quaternion.Euler(0, 0, 0), time);
                 time += Time.deltaTime;
@@ -1311,22 +1333,25 @@ public class StoryController : MonoBehaviour
         Vector3 initDemonPosition = demonHTP.transform.position;
         Quaternion initDemonRotation = demonHTP.transform.rotation;
         float t = 0;
-        while((Vector3.Distance(demonHTP.transform.position,demonHellPoint.position)>0.3f) && (demonHTP.transform.rotation !=demonHellPoint.rotation))
+        //demon comes in front of the player and towers over them
+        while ((Vector3.Distance(demonHTP.transform.position, demonHellPoint.position) > 0.3f) && (demonHTP.transform.rotation != demonHellPoint.rotation))
         {
             demonHTP.transform.position = Vector3.Slerp(initDemonPosition, demonHellPoint.position, t);
             demonHTP.transform.rotation = Quaternion.Slerp(initDemonRotation, demonHellPoint.rotation, t);
-            t += (0.5f*Time.deltaTime);
+            t += (0.5f * Time.deltaTime);
             yield return null;
         }
         demonHTP.transform.position = demonHellPoint.position;
         demonHTP.transform.rotation = demonHellPoint.rotation;
         yield return new WaitForSeconds(0.5f);
         demonSound.Stop();
-        routineControl = StartCoroutine(dialoguePush(demonDialogueList[3],1000,true));
+        //demon badass dialogue
+        routineControl = StartCoroutine(dialoguePush(demonDialogueList[3], 1000, true));
         yield return new WaitForSeconds(1f);
         spirit.transform.SetParent(demonHTP.transform);
         demonHellPoint = spirit.transform.Find("DemonPosition2");
         initDemonRotation = demonHTP.transform.rotation;
+        //demon and player rotate so that up becomes down
         Quaternion finalDemonRotation = demonHellPoint.rotation;
         t = 0;
         while (demonHTP.transform.rotation != finalDemonRotation)
@@ -1346,12 +1371,14 @@ public class StoryController : MonoBehaviour
         routineControl = StartCoroutine(dialoguePush(demonDialogueList[4], 1000, true));
         yield return new WaitForSeconds(2f);
         t = 0;
-        while(t<3f)
+        //demon descends to hell
+        while (t < 3f)
         {
-            demonHTP.transform.position += demonHTP.transform.up*Time.deltaTime*100;
+            demonHTP.transform.position += demonHTP.transform.up * Time.deltaTime * 100;
             t += Time.deltaTime;
             yield return null;
         }
+        //death screen
         deathObject.onDeath();
         StopCoroutine(routineControl);
         demonDialogueCounter--;
@@ -1376,7 +1403,7 @@ public class StoryController : MonoBehaviour
         deathObject.resetDeath();
         faintObject.resetFaint();
     }
-    IEnumerator beforeDemonGoByeBye()
+    IEnumerator beforeDemonGoByeBye() //if player defeats demon outside the room, demon disappears, this dialogue is then triggered
     {
         yield return new WaitForSeconds(0.5f);
         Queue<string> dQ = new Queue<string>();
@@ -1384,7 +1411,7 @@ public class StoryController : MonoBehaviour
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times = {4,4};
+        float[] times = { 4, 4 };
         dialogueBegun = true;
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
         yield return new WaitForSeconds(8f);
@@ -1399,20 +1426,23 @@ public class StoryController : MonoBehaviour
     }
     IEnumerator demonGoByeBye()
     {
-        if(demonDiedInRoom==2)
+        if (demonDiedInRoom == 2) //if demon dies in room, player is definitely a spirit at the moment as only spirit mode can damage demon
         {
+            //find spirit object and make it look at demon
             Transform spirit = GameObject.Find("SpiritHTP(Clone)").transform;
             Transform spiritVTP = spirit.Find("SpiritVTP");
             spiritVTP.LookAt(demonHTP.transform);
             Quaternion initialDemonRot = demonHTP.transform.rotation;
             Vector3 initialDemonPosition = demonHTP.transform.position;
             float time = 0;
-            while((Vector3.Distance(demonHTP.transform.position,demonEndPoint2.position)>0.3f) && demonHTP.transform.rotation!=demonEndPoint2.rotation)
+            //move demon to its position and player spirit to its position simultaneously while the player looks at the demon move
+            //you have to kill demon in elizabeths room, to see this happen
+            while ((Vector3.Distance(demonHTP.transform.position, demonEndPoint2.position) > 0.3f) && demonHTP.transform.rotation != demonEndPoint2.rotation)
             {
                 demonHTP.transform.position = Vector3.Slerp(initialDemonPosition, demonEndPoint2.position, time);
                 demonHTP.transform.rotation = Quaternion.Slerp(initialDemonRot, demonEndPoint2.rotation, time);
                 spiritVTP.LookAt(demonHTP.transform);
-                time += (0.5f*Time.deltaTime);
+                time += (0.5f * Time.deltaTime);
                 yield return null;
             }
             demonHTP.transform.position = demonEndPoint2.position;
@@ -1421,14 +1451,15 @@ public class StoryController : MonoBehaviour
         }
         else
         {
-            while(demonDiedInRoom!=1)
+            //wait while player gets to elizabeths room
+            while (demonDiedInRoom != 1)
             {
                 yield return null;
             }
             playerManager.transformEnabled = false;
             moveEnabled = false;
             Destroy(insideTrigger);
-            if(dialogueBegun==true)
+            if (dialogueBegun == true)
             {
                 StopCoroutine(routineControl);
                 dialogueCounter--;
@@ -1438,14 +1469,18 @@ public class StoryController : MonoBehaviour
                 }
                 dialogueBegun = false;
             }
-            if(theLastCoroutine!=null)
+            if (theLastCoroutine != null)
             {
                 StopCoroutine(theLastCoroutine);
                 theLastCoroutine = null;
             }
         }
-        if(playerManager.isSpirit)
+        //player can get to elizabeths room as a spirit or in human form, both cases must be handled
+        if (playerManager.isSpirit) //if player gets to room as a spirit
         {
+            /*spirit object drifts to the center of the room and then transforms back into player form (this is not done by player and is done by code. So a small trick
+             i played is the players body snaps to the spirit this time instead of the usual where spirit must snap to player body, it is not ntoticeable and looks seamless
+             as until transformation begins, player body is invisible*/
             Transform spirit = GameObject.Find("SpiritHTP(Clone)").transform;
             Transform stub = GameObject.Find("StubGrandParent(Clone)").transform;
             Transform spiritVTP = spirit.Find("SpiritVTP");
@@ -1453,13 +1488,13 @@ public class StoryController : MonoBehaviour
             Quaternion spiritInitialRotation = spirit.rotation;
             Quaternion spiritVTPInitialRotation = spiritVTP.localRotation;
             float time = 0f;
-            while((Vector3.Distance(spirit.position, playerFinalPosition.position) > 0.3f) && (spirit.rotation!=playerFinalPosition.rotation) &&
-                spiritVTP.localRotation!=Quaternion.Euler(0,0,0))
+            while ((Vector3.Distance(spirit.position, playerFinalPosition.position) > 0.3f) && (spirit.rotation != playerFinalPosition.rotation) &&
+                spiritVTP.localRotation != Quaternion.Euler(0, 0, 0))
             {
                 spirit.position = Vector3.Slerp(spiritInitialPosition, playerFinalPosition.position, time);
                 spirit.rotation = Quaternion.Slerp(spiritInitialRotation, playerFinalPosition.rotation, time);
-                spiritVTP.localRotation = Quaternion.Slerp(spiritVTPInitialRotation, Quaternion.Euler(0,0,0), time);
-                time += (0.5f*Time.deltaTime);
+                spiritVTP.localRotation = Quaternion.Slerp(spiritVTPInitialRotation, Quaternion.Euler(0, 0, 0), time);
+                time += (0.5f * Time.deltaTime);
                 yield return null;
             }
             spirit.position = playerFinalPosition.position;
@@ -1473,25 +1508,27 @@ public class StoryController : MonoBehaviour
             playerHTP.transform.rotation = spirit.rotation;
             stub.position = spirit.position;
             stub.rotation = spirit.rotation;
+            //transform into human 
             playerManager.becomeSpirit = true;
             yield return new WaitForSeconds(1f);
         }
-        else
+        else //player is already in human form, no need to transform.
         {
+            //player moves to center of the room
             Vector3 initPlayerPos = playerBody.transform.position;
             Quaternion initPlayerRot = playerBody.transform.rotation;
             Quaternion initPlayerHTPRot = playerHTP.transform.rotation;
             Quaternion initPlayerVTPRot = playerVTP.transform.localRotation;
             float time = 0f;
-            while((Vector3.Distance(playerBody.transform.position,playerFinalPosition.position)>.3f) && playerBody.transform.rotation!=playerFinalPosition.rotation &&
-                playerHTP.transform.rotation!= playerFinalPosition.rotation && playerVTP.transform.localRotation!=Quaternion.Euler(0,0,0))
+            while ((Vector3.Distance(playerBody.transform.position, playerFinalPosition.position) > .3f) && playerBody.transform.rotation != playerFinalPosition.rotation &&
+                playerHTP.transform.rotation != playerFinalPosition.rotation && playerVTP.transform.localRotation != Quaternion.Euler(0, 0, 0))
             {
                 playerBody.transform.position = Vector3.Slerp(initPlayerPos, playerFinalPosition.position, time);
                 playerHTP.transform.position = playerBody.transform.position;
                 playerBody.transform.rotation = Quaternion.Slerp(initPlayerRot, playerFinalPosition.rotation, time);
                 playerHTP.transform.rotation = Quaternion.Slerp(initPlayerHTPRot, playerFinalPosition.rotation, time);
-                playerVTP.transform.localRotation = Quaternion.Slerp(initPlayerVTPRot,Quaternion.Euler(0,0,0), time);
-                time +=(0.5f*Time.deltaTime);
+                playerVTP.transform.localRotation = Quaternion.Slerp(initPlayerVTPRot, Quaternion.Euler(0, 0, 0), time);
+                time += (0.5f * Time.deltaTime);
                 yield return null;
             }
             playerBody.transform.position = playerFinalPosition.position;
@@ -1500,6 +1537,7 @@ public class StoryController : MonoBehaviour
             playerHTP.transform.rotation = playerBody.transform.rotation;
             playerVTP.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
+        //cinematic camera zooms in  for effect, dialogue begins
         cinematicCam.transform.SetParent(playerVTP.transform);
         camAn.SetTrigger("zoomIn");
         cinematicCam.enabled = true;
@@ -1509,7 +1547,7 @@ public class StoryController : MonoBehaviour
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times = {4,3,4,5};
+        float[] times = { 4, 3, 4, 5 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times));
         yield return new WaitForSeconds(16.5f);
         StopCoroutine(routineControl);
@@ -1518,14 +1556,14 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
-        StartCoroutine(dialoguePush(demonDialogueList[5],6,true));
+        StartCoroutine(dialoguePush(demonDialogueList[5], 6, true));
         yield return new WaitForSeconds(6.5f);
         dQ = new Queue<string>();
         for (int i = 77; i < 81; i++)
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times2 = {3,10,10,10};
+        float[] times2 = { 3, 10, 10, 10 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times2));
         yield return new WaitForSeconds(33.5f);
         StopCoroutine(routineControl);
@@ -1534,14 +1572,14 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
-        StartCoroutine(dialoguePush(demonDialogueList[6],3, true));
+        StartCoroutine(dialoguePush(demonDialogueList[6], 3, true));
         yield return new WaitForSeconds(3.5f);
         dQ = new Queue<string>();
         for (int i = 81; i < 83; i++)
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times3 = {7,10};
+        float[] times3 = { 7, 10 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times3));
         yield return new WaitForSeconds(17f);
         StopCoroutine(routineControl);
@@ -1550,16 +1588,18 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
-        StartCoroutine(dialoguePush(demonDialogueList[7],5, true));
+        StartCoroutine(dialoguePush(demonDialogueList[7], 5, true));
         float timeToDescend = 0f;
-        while(timeToDescend < 3f)
+        while (timeToDescend < 3f)
         {
             demonHTP.transform.position -= (Vector3.up * Time.deltaTime * 10);
             timeToDescend += Time.deltaTime;
             yield return null;
         }
+        //demon death
         Destroy(demonHTP);
         yield return new WaitForSeconds(2f);
+        //light is normal again
         switchLighting.SetToDay();
         yield return new WaitForSeconds(.5f);
         StartCoroutine(dialoguePush(dialogueList[83], 5));
@@ -1575,7 +1615,7 @@ public class StoryController : MonoBehaviour
         {
             dQ.Enqueue(dialogueList[i]);
         }
-        float[] times4 = {4,4,5};
+        float[] times4 = { 4, 4, 5 };
         routineControl = StartCoroutine(dialogueQueuePush(dQ, times4));
         yield return new WaitForSeconds(13.5f);
         StopCoroutine(routineControl);
@@ -1584,6 +1624,7 @@ public class StoryController : MonoBehaviour
         {
             dialogueText.enabled = false;
         }
+        //some light hearted shenanigans 
         endObject.onFaint();
         yield return new WaitForSeconds(5);
         endObject.resetFaint();
@@ -1607,9 +1648,11 @@ public class StoryController : MonoBehaviour
         endObject.resetFaint();
         yield return new WaitForSeconds(3);
         StartCoroutine(tipPush(tipList[7], 10f));
+        //game can be quit whenever needed, else player can free roam the house
         exitGame = true;
     }
-    public IEnumerator dialoguePush(string dialogue, float secs,bool isDemon = false)
+    //function for 1 line dialogues
+    public IEnumerator dialoguePush(string dialogue, float secs, bool isDemon = false)
     {
         if (!isDemon)
         {
@@ -1636,7 +1679,8 @@ public class StoryController : MonoBehaviour
             }
         }
     }
-    public IEnumerator dialogueQueuePush(Queue<string> dialogueQueue,float[] times,bool allowExit=true,bool isDemon=false)
+    //function for monologues
+    public IEnumerator dialogueQueuePush(Queue<string> dialogueQueue, float[] times, bool allowExit = true, bool isDemon = false)
     {
         if (!isDemon)
         {
@@ -1672,6 +1716,7 @@ public class StoryController : MonoBehaviour
             }
         }
     }
+    //function to give tips
     IEnumerator tipPush(string tip, float secs)
     {
         tipCounter++;
@@ -1684,6 +1729,7 @@ public class StoryController : MonoBehaviour
             tipText.enabled = false;
         }
     }
+    //see demonTextManager.cs
     public void restoreCounter()
     {
         dialogueCounter--;
@@ -1692,6 +1738,7 @@ public class StoryController : MonoBehaviour
             dialogueText.enabled = false;
         }
     }
+    //reseting variables to respawn at start of phase 3 
     public void respawnAtCheckPoint()
     {
         playerBody.transform.position = checkPoint.position;
@@ -1706,7 +1753,7 @@ public class StoryController : MonoBehaviour
         playerManager.stopRecovery = false;
         demonAppear.bulletHits = 0;
         GameObject[] colliderTriggers = GameObject.FindGameObjectsWithTag("cornerTrigs");
-        for(int i = 0;i<colliderTriggers.Length;i++)
+        for (int i = 0; i < colliderTriggers.Length; i++)
         {
             colliderTriggers[i].GetComponent<demonAppear>().beenHit = false;
         }

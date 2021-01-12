@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//script to control spirit movememnt
 public class spiritMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
     CharacterController cc;
     public float moveSpeed;
     public Transform SpiritForm;
@@ -25,7 +24,7 @@ public class spiritMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        float sides = 0f, front = 0f,up = 0f;
+        float sides = 0f, front = 0f, up = 0f;
         if (StoryController.moveEnabled == true)
         {
             if (Input.GetAxis("Horizontal") != 0.0f)
@@ -40,6 +39,7 @@ public class spiritMovement : MonoBehaviour
             {
                 up = Input.GetAxis("Fly");
             }
+            //movement
             if (front != 0f || sides != 0f || up != 0f)
             {
                 cc.Move(Vector3.Normalize(SpiritForm.forward * front + SpiritForm.right * sides + transform.up * up)

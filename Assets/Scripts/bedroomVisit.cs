@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*script to handle the entire chess board sequence*/
 public class bedroomVisit : MonoBehaviour
 {
-    public GameObject originalObjects;
-    public GameObject switchedObjects;
-    public GameObject secondTrigger;
-    public GameObject thirdTrigger;
-    public AudioSource chessBoard;
-    IEnumerator delayedReaction()
+    public GameObject originalObjects; //the original chess board and coins
+    public GameObject switchedObjects; //objects to be displayed when player re-enters
+    public GameObject secondTrigger; //outside room trigger to create sound inside bedroom
+    public GameObject thirdTrigger; //inside room trigger to trigger chess board dialogue
+    public AudioSource chessBoard; //board falling audio
+
+    IEnumerator delayedReaction() //once player exits bedroom, object switching
     {
         yield return new WaitForSeconds(0.5f);
         StoryController.bedroomExit = true;
@@ -20,7 +21,7 @@ public class bedroomVisit : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.name == "visited Trigger")
+        if (gameObject.name == "visited Trigger") //activate outside room trigger
         {
             if (other.tag == "Player")
             {
@@ -29,15 +30,15 @@ public class bedroomVisit : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if(gameObject.name == "second Trigger")
+        if (gameObject.name == "second Trigger") //chess board sound
         {
-            if(other.tag == "Player")
+            if (other.tag == "Player")
             {
                 chessBoard.Play();
                 StartCoroutine(delayedReaction());
             }
         }
-        if (gameObject.name == "third Trigger")
+        if (gameObject.name == "third Trigger") //dialogue about boards
         {
             if (other.tag == "Player")
             {

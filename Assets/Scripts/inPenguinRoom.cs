@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class inPenguinRoom : MonoBehaviour
 {
-    public static bool inViewable;
-    public static bool inRoom;
-    public static bool camRoom;
+    public static bool inViewable; //slightly smaller trigger to ensure player is well inside the room
+    public static bool inRoom; //player is inside the play room
+    public static bool camRoom; //camera is inside the room
     private void Awake()
     {
         inViewable = false;
@@ -19,7 +19,7 @@ public class inPenguinRoom : MonoBehaviour
     }
     IEnumerator destroySelf()
     {
-        while(penguinController.canDisapear!=3)
+        while (penguinController.canDisapear != 3)
         {
             yield return new WaitForSeconds(10f);
         }
@@ -27,7 +27,7 @@ public class inPenguinRoom : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player" && gameObject.name=="inView")
+        if (other.tag == "Player" && gameObject.name == "inView")
         {
             inViewable = true;
         }

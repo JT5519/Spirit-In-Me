@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//script attached to a trigger in elizabeths room. once player enters the room, penguin appears outside the playroom
 public class penguinAppear : MonoBehaviour
 {
     private bool penguinReAppear = false;
@@ -14,17 +14,18 @@ public class penguinAppear : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if (other.tag == "Player")
         {
             penguinReAppear = true;
         }
     }
     private void Update()
     {
-        if(penguinReAppear == true)
+        //story progression and cleanup
+        if (penguinReAppear == true)
         {
             penguinController.reAppear = 1;
-            if(penguinController.makeSomeNoise == 6)
+            if (penguinController.makeSomeNoise == 6)
             {
                 Destroy(penguinGone);
                 penguinGoneDestroyed = true;
@@ -32,6 +33,7 @@ public class penguinAppear : MonoBehaviour
                 penguinController.makeSomeNoise = 7;
                 StoryController.playerHasSeenDisapearance = 6;
             }
+            //trigger to catch player once they come out of elizabeths room and begin penguin advance
             outTrigger.SetActive(true);
             Destroy(gameObject);
         }

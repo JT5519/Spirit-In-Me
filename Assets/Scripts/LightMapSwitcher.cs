@@ -3,19 +3,29 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+/*script to switch lighting data in the scene when demon appears, taken from LightMapper.cs on the web*/
 public class LightMapSwitcher : MonoBehaviour
 {
+    //lightmap 1 data
     public Texture2D[] phase1Dir;
     public Texture2D[] phase1Color;
+    //lightmap 2 data
     public Texture2D[] phase2Dir;
     public Texture2D[] phase2Color;
 
+    //lightmap data structures for switching
     private LightmapData[] phase1LightMaps;
     private LightmapData[] phase2LightMaps;
 
+    /*assets to store light probe data between the switches, found on youtube
+      https://www.youtube.com/watch?v=BRapbR6vPII&t=298s : Birdmask Studios.
+      The video was a great help in figuring out how to switch light probes along 
+      with the lightmaps. They had some tools that made capturing lightprobes data
+      really easy!*/
     public AlternativeLightingData phase1;
     public AlternativeLightingData phase2;
 
+    //light component game objects changes
     public GameObject firstFloorRealtime;
     public GameObject firstFloorBaked;
 
@@ -35,13 +45,13 @@ public class LightMapSwitcher : MonoBehaviour
             return;
         }
 
-        // Sort the Day and Night arrays in numerical order, so you can just blindly drag and drop them into the inspector
+        // Sort the arrays in numerical order, so you can just blindly drag and drop them into the inspector
         phase1Dir = phase1Dir.OrderBy(t2d => t2d.name, new NaturalSortComparer<string>()).ToArray();
         phase1Color = phase1Color.OrderBy(t2d => t2d.name, new NaturalSortComparer<string>()).ToArray();
         phase2Dir = phase2Dir.OrderBy(t2d => t2d.name, new NaturalSortComparer<string>()).ToArray();
         phase2Color = phase2Color.OrderBy(t2d => t2d.name, new NaturalSortComparer<string>()).ToArray();
 
-        // Put them in a LightMapData structure
+        // Put above data into LightMapData structures
         phase1LightMaps = new LightmapData[phase1Dir.Length];
         for (int i = 0; i < phase1Dir.Length; i++)
         {
@@ -61,17 +71,19 @@ public class LightMapSwitcher : MonoBehaviour
     }
 
     #region Publics
-    public void SetToDay()
+    public void SetToDay() //first set of lighting data
     {
+        //switching lightmaps and probes
         LightmapSettings.lightmaps = phase1LightMaps;
         LightmapSettings.lightProbes.bakedProbes = phase1.lightProbesData;
+        //changing light game objects, player is in a location where they cant see the switch being made
         corridorBaked.SetActive(false);
         firstFloorBaked.SetActive(false);
         corridorRealtime.SetActive(true);
         firstFloorRealtime.SetActive(true);
     }
 
-    public void SetToNight()
+    public void SetToNight() //second set of lighting data
     {
         LightmapSettings.lightmaps = phase2LightMaps;
         LightmapSettings.lightProbes.bakedProbes = phase2.lightProbesData;
@@ -81,7 +93,7 @@ public class LightMapSwitcher : MonoBehaviour
         firstFloorBaked.SetActive(true);
     }
     #endregion
-
+    //used during testing to check switching of lights
     /*private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
@@ -109,7 +121,7 @@ public class LightMapSwitcher : MonoBehaviour
     #endregion
 }
 
- 
+//taken from LightMapper.cs on the web
 public class NaturalSortComparer<T> : IComparer<string>, IDisposable
 {
     private readonly bool isAscending;

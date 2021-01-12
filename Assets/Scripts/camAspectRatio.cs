@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*script taken from the web, to ensure camera aspect ratio to ensure UI elements scaling was not ruined*/
 public class camAspectRatio : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Awake()
     {
-        // set the desired aspect ratio (the values in this example are
-        // hard-coded for 16:9, but you could make them into public
-        // variables instead so you can set them at design time)
+        // set the desired aspect ratio (the values in this case are
+        // hard-coded for 16:9, but can be made into public
+        // variables instead to set them at design time)
         float targetaspect = 16.0f / 9.0f;
 
         // determine the game window's current aspect ratio

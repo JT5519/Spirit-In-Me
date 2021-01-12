@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*Script to swtich materials of objects in spirits path, to make them transparent. This is because
+  the spirit can pass through walls and if every wall comes between the spirit and the third person camera
+   then a sense of continuity is lost. So materials in a certain region around the spirit and camera will
+   become transparent for the duration they are in that region, and then switch back to their original 
+    materials*/
 
+/*tried chaning the alpha values of the materials themselves but, on lightweight render pipeline, due to the
+  different shader used from the standard one, dynamic transparency changing has alot of issues. After lots of surfing,
+  and finding many bug reports and similar complaints, I just decided to make a duplicate pair of materials with a fixed 
+  transparency*/
 public class TransDo : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Material wallOG;
     public Material wallT;
 
@@ -35,7 +43,7 @@ public class TransDo : MonoBehaviour
     public Material shutterT;
 
     // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //change to transparent
     {
         if (other.gameObject.tag == "wall")
             other.gameObject.GetComponent<MeshRenderer>().material = wallT;
@@ -49,7 +57,7 @@ public class TransDo : MonoBehaviour
             other.gameObject.GetComponent<MeshRenderer>().material = doorT1;
         else if (other.gameObject.tag == "door 2")
             other.gameObject.GetComponent<MeshRenderer>().material = doorT2;
-        else if(other.gameObject.tag == "main door")
+        else if (other.gameObject.tag == "main door")
             other.gameObject.GetComponent<MeshRenderer>().material = maindoorT1;
         else if (other.gameObject.tag == "main door 2")
             other.gameObject.GetComponent<MeshRenderer>().material = maindoorT2;
@@ -58,7 +66,7 @@ public class TransDo : MonoBehaviour
         else if (other.gameObject.tag == "shutter")
             other.gameObject.GetComponent<MeshRenderer>().material = shutterT;
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) //change to original
     {
         if (other.gameObject.tag == "wall")
             other.gameObject.GetComponent<MeshRenderer>().material = wallOG;
