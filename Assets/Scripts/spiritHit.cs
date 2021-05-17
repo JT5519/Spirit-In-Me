@@ -5,17 +5,14 @@ using UnityEngine;
 public class spiritHit : MonoBehaviour
 {
     public Animator spiritAnim;
-    private bool canHit;
-    private bool didHit;
-
+    private static bool hitDamage;
     public static bool spiritCantHurtDemon = false;
 
     private AudioSource demonSource;
     public AudioClip demonHurtSound;
     private void Start()
     {
-        canHit = false;
-        didHit = false;
+        hitDamage = true;
         GameObject temp;
         temp = GameObject.Find("DemonHTP"); //happens everytime the spirit object is instantiated
         if (temp != null)
@@ -23,43 +20,47 @@ public class spiritHit : MonoBehaviour
         else
             demonSource = null;
     }
+    IEnumerator hitDamageEnable(float timeToWait)
+    {
+        //yield return new WaitForSeconds(timeToWait); Some hits were not registering despite reducing wait time
+        while(!spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("SpiritNeutral"))
+        {
+            yield return null;
+        }
+        hitDamage = true;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Demon")
+        if (other.tag == "Demon" && hitDamage && !spiritCantHurtDemon)
         {
-            canHit = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Demon")
-        {
-            canHit = false;
-        }
-    }
-    private void Update()
-    {
-        //if player hand trigger is inside demon, and damage has not already been accounted for, then player can hit demon
-        if (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Attack") && canHit && !didHit && !spiritCantHurtDemon)
-        {
-            didHit = true;
-            DemonBeenHit.demonHealth -= 5;
-            if (DemonBeenHit.demonHealth < 0)
-                DemonBeenHit.demonHealth = 0;
+            if (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack") || spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack"))
+            {
+                hitDamage = false;
+                StartCoroutine(hitDamageEnable(0.75f));
+                DemonBeenHit.demonHealth -= 0; //make it 5
+                if (DemonBeenHit.demonHealth < 0)
+                    DemonBeenHit.demonHealth = 0;
+                if (demonSource != null)
+                    demonSource.PlayOneShot(demonHurtSound);
+            }
+            else if(spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("PowerAttack"))
+            {
+                hitDamage = false;
+                StartCoroutine(hitDamageEnable(1.75f));
+                DemonBeenHit.demonHealth -= 0; //make it 10
+                if (DemonBeenHit.demonHealth < 0)
+                    DemonBeenHit.demonHealth = 0;
+                if (demonSource != null)
+                    demonSource.PlayOneShot(demonHurtSound);
+            }
             /*if demon health touches zero, demon should instantly not be able to hurt player. This was to ensure that in case both demon and player
-              were one hit away from dying and both hit each other, the one whose triggers hit first, should survive, else unwanted case will arise of
-              both dying. Same piece of code done in vice versa in DemonHit.cs */
+were one hit away from dying and both hit each other, the one whose triggers hit first, should survive, else unwanted case will arise of
+both dying. Same piece of code done in vice versa in DemonHit.cs */
             if (DemonBeenHit.demonHealth == 0)
             {
                 if (!DemonHit.demonCantHurtSpirit)
                     DemonHit.demonCantHurtSpirit = true;
             }
-            if (demonSource != null)
-                demonSource.PlayOneShot(demonHurtSound);
-        }
-        else if (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Neutral") && didHit)
-        {
-            didHit = false;
         }
     }
 }

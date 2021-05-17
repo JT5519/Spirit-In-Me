@@ -14,9 +14,18 @@ public class spiritAttack : MonoBehaviour
     void Update()
     {
         //attack only if attack button is clicked, movement is enabled and spirit was in non-attacking state
-        if (Input.GetMouseButtonDown(0) && StoryController.moveEnabled && spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Neutral"))
+        if (Input.GetMouseButtonDown(0) && StoryController.moveEnabled && spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("SpiritNeutral"))
         {
-            spiritAnim.SetTrigger("Hit");
+            spiritAnim.SetTrigger("RightHit");
+        }
+        else if(Input.GetMouseButtonDown(1) && StoryController.moveEnabled && spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("SpiritNeutral"))
+        {
+            spiritAnim.SetTrigger("LeftHit");
+        }
+        else if (Input.GetMouseButtonDown(2) && StoryController.moveEnabled && spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("SpiritNeutral"))
+        {
+            spiritAnim.SetTrigger("PowerHit");
         }
     }
 }
+

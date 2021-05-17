@@ -195,8 +195,9 @@ GameObject:
   - component: {fileID: 7844403461407022278}
   - component: {fileID: 7844403461407022277}
   - component: {fileID: 7844403461407022276}
-  - component: {fileID: 7844403461407022279}
-  m_Layer: 8
+  - component: {fileID: 852400835}
+  - component: {fileID: 3168833757558621212}
+  m_Layer: 11
   m_Name: lefthand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,6 +241,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -264,20 +266,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &7844403461407022279
-CapsuleCollider:
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &852400835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844403461407022273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc422c9beb1b4741bfbdb4f8ea4e237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiritAnim: {fileID: 7844403461432136231}
+  demonHurtSound: {fileID: 8300000, guid: 269ef5a5ce35a5e48ad069c02c5fbcfc, type: 3}
+--- !u!65 &3168833757558621212
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7844403461407022273}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 2
+  m_Size: {x: 1.8796923, y: 4.2514505, z: 1.0000001}
+  m_Center: {x: -0.102159366, y: -1.1257255, z: -0.00000005960465}
 --- !u!1 &7844403461432136226
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +355,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -363,6 +380,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &7844403461432136227
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -464,6 +482,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -488,6 +507,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7844403461640213733
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -599,7 +619,6 @@ MonoBehaviour:
   CamRef: {fileID: 7844403461889746175}
   SpiritVTP: {fileID: 7844403462821101658}
   sensitivity: 1
-  yInvert: -1
 --- !u!143 &7844403461979508228
 CharacterController:
   m_ObjectHideFlags: 0
@@ -812,6 +831,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -836,6 +856,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &728454895
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class playerManager : MonoBehaviour
     private void Awake()
     {
         isSpirit = false;
-        transformEnabled = false; //to enable or disable transformation
+        transformEnabled = true; //to enable or disable transformation
         Fenabled = true; //when true, it means player is not in transition. When false, player is currently in transformation
         becomeSpirit = false; //short circuit to tranform player forcefully through script (only needed in cutscenes)
     }
@@ -98,9 +98,12 @@ public class playerManager : MonoBehaviour
         {
             playerHealth++;
             healthRecoveryTimer = 0;
+            checkPlayerHealth();
         }
         /*player healthrecover*/
-
+    }
+    public void checkPlayerHealth()
+    {
         /*player healthDisp, different levels of vignette based on health*/
         if (playerHealth > 75)
         {

@@ -32,8 +32,8 @@ public class SaltCollection : MonoBehaviour
         {
             StoryController.saltCollected = 1;
             StoryController.saltRemind = 2;
-            Destroy(SaltTrigger);
             Destroy(SaltContainer);
+            //Destroy(SaltTrigger);
         }
     }
 }

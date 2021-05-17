@@ -7858,8 +7858,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6959512899464734246, guid: 17b84ef19821f694dbe56bc562166f7a,
         type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -13.72001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959512899464734246, guid: 17b84ef19821f694dbe56bc562166f7a,
+        type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -32.369995
+      value: 32.369995
       objectReference: {fileID: 0}
     - target: {fileID: 6959948032456264394, guid: 17b84ef19821f694dbe56bc562166f7a,
         type: 3}
@@ -9112,6 +9117,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 966485099}
     m_Modifications:
+    - target: {fileID: 6469243057031532690, guid: 5758d7c0b9c0dae48accca5fb342e7b5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6469243057033433714, guid: 5758d7c0b9c0dae48accca5fb342e7b5,
         type: 3}
       propertyPath: m_RootOrder
@@ -10230,8 +10240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 579012398}
   - component: {fileID: 579012402}
-  - component: {fileID: 579012401}
-  - component: {fileID: 579012400}
   - component: {fileID: 579012399}
   m_Layer: 0
   m_Name: SaltText
@@ -10301,7 +10309,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -10313,9 +10321,9 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 514
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -10350,22 +10358,6 @@ MonoBehaviour:
   m_maskType: 0
   _SortingLayerID: 0
   _SortingOrder: 0
---- !u!222 &579012400
-CanvasRenderer:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579012397}
-  m_CullTransparentMesh: 0
---- !u!33 &579012401
-MeshFilter:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579012397}
-  m_Mesh: {fileID: 0}
 --- !u!23 &579012402
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17892,10 +17884,10 @@ GameObject:
   - component: {fileID: 1030513237}
   - component: {fileID: 1030513236}
   - component: {fileID: 1030513235}
-  - component: {fileID: 1030513234}
   - component: {fileID: 1030513238}
   - component: {fileID: 1030513239}
   - component: {fileID: 1030513240}
+  - component: {fileID: 1030513234}
   m_Layer: 8
   m_Name: Demon
   m_TagString: Demon
@@ -17903,8 +17895,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1030513234
-CapsuleCollider:
+--- !u!65 &1030513234
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -17913,10 +17905,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1.8886915, z: 1.0095364}
+  m_Center: {x: -0.0000009366445, y: 0.022281494, z: 0.004768074}
 --- !u!23 &1030513235
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21020,6 +21011,10 @@ MonoBehaviour:
   origin: {fileID: 1213463775}
   container: {fileID: 1944034999}
   speed: 8000
+  leftHandAnim: {fileID: 1254284825}
+  healZonePrefab: {fileID: 2455489648270455744, guid: 7b1a44d644baaf34c8ade330bd9edd0e,
+    type: 3}
+  leftHandPosition: {fileID: 562958674}
 --- !u!1 &1215914513
 GameObject:
   m_ObjectHideFlags: 0
@@ -21763,6 +21758,7 @@ GameObject:
   - component: {fileID: 1254284822}
   - component: {fileID: 1254284823}
   - component: {fileID: 1254284824}
+  - component: {fileID: 1254284825}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -21975,6 +21971,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1254284825
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254284817}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46e57daefb8d5204bb2a2d664f507570, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1266000811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26111,7 +26126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479612020}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 38.680008, y: 7.2300005, z: 27.220016}
+  m_LocalPosition: {x: 33.83, y: 4.47, z: 27.220016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1030513237}

@@ -55,13 +55,16 @@ public class DemonChase : MonoBehaviour
             /*movement*/
             transform.LookAt(Target);
             distance = Vector3.Distance(Target.position, transform.position);
+            Vector3 newPosition = transform.position + transform.forward * Time.deltaTime * moveSpeed;
             if (distance > minDistance) //move towards player
             {
-                if (Vector3.Distance(transform.position + transform.forward * Time.deltaTime * moveSpeed, Target.position) >= minDistance)
-                    transform.position += transform.forward * Time.deltaTime * moveSpeed;
+                if (Vector3.Distance(newPosition, Target.position) >= minDistance)
+                {
+                    transform.position = newPosition;
+                }
                 else
                 {
-                    transform.position += transform.forward * (Vector3.Distance(transform.position, Target.position) - minDistance);
+                    transform.position += transform.forward * (distance - minDistance);
                 }
             }
             else if (distance < minDistance) //move away from player (maintains combat distance, else they go into each other)

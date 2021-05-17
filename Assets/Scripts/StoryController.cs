@@ -165,7 +165,7 @@ public class StoryController : MonoBehaviour
         duringFightDialogues = 0;
         respawn = 0;
         monologuing = false;
-        playerManager.transformEnabled = false; //in phase 1, player cant turn into spirit yet
+        playerManager.transformEnabled = true; //in phase 1, player cant turn into spirit yet
 
         demonRoutine = null;
         hunterRoutine = null;
