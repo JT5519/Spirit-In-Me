@@ -37,12 +37,15 @@ public class playerManager : MonoBehaviour
     private Coroutine routineControl;
     private bool stubDestroyed;
     private int spiritToCorp;
+
+    public static Transform targetForTheRest; //updated in movescript and spiritmovement
     private void Awake()
     {
         isSpirit = false;
         transformEnabled = true; //to enable or disable transformation
         Fenabled = true; //when true, it means player is not in transition. When false, player is currently in transformation
         becomeSpirit = false; //short circuit to tranform player forcefully through script (only needed in cutscenes)
+        targetForTheRest = player.transform;
     }
     private void Start()
     {
@@ -181,8 +184,9 @@ public class playerManager : MonoBehaviour
         stubDestroyed = false; //to track whether stub exists or not
         //create spirit object
         tempSpirit = Instantiate(spiritPrefab, player.transform.position, player.transform.rotation, container);
+        targetForTheRest = tempSpirit.transform; //for all classes to see what current player position is irrespective of state, ELIMINATE targetChange
         //demon must attack spirit now not human
-        DemonChase.targetChanged = true;
+        DemonChase.targetChanged = true; //change to combat director class
         //spirit effects enabled
         isSpirit = !isSpirit;
         blurEffect.active = true;
@@ -231,7 +235,8 @@ public class playerManager : MonoBehaviour
         player.GetComponent<moveScript>().enabled = true;
         player.SetActive(true);
         isSpirit = !isSpirit;
-        DemonChase.targetChanged = true;
+        targetForTheRest = player.transform;
+        DemonChase.targetChanged = true; //change to combat director class
         yield return null; //yield point 1: to let the demon change target right, then allow transformation, just a one frame wait 
         Fenabled = true;
         spiritToCorp = 0;

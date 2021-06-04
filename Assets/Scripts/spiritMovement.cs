@@ -44,6 +44,7 @@ public class spiritMovement : MonoBehaviour
             {
                 cc.Move(Vector3.Normalize(SpiritForm.forward * front + SpiritForm.right * sides + transform.up * up)
                     * Time.deltaTime * moveSpeed);
+                playerManager.targetForTheRest = transform;
             }
         }
     }

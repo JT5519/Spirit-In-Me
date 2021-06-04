@@ -6,7 +6,7 @@ public class moveScript : MonoBehaviour
 {
     //character controller of the player
     CharacterController cc;
-    private float moveSpeed = 20.0f;
+    private float moveSpeed = 10f;
     public Transform ghost;
     public float gravity = -9.8f;
     public float doorForce = 1.0f;
@@ -62,8 +62,8 @@ public class moveScript : MonoBehaviour
                 {
                     transform.rotation = ghost.rotation;
                 }
-                cc.Move(Vector3.Normalize(ghost.forward * front + ghost.right * sides + ghost.up * down)
-                    * Time.deltaTime * moveSpeed);
+                cc.Move(Vector3.Normalize(ghost.forward * front + ghost.right * sides) * Time.deltaTime * moveSpeed + ghost.up * down);
+                playerManager.targetForTheRest = transform;
             }
             //controller and player must be together
             if (ghost.position != transform.position)

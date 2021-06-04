@@ -372,7 +372,7 @@ public class StoryController : MonoBehaviour
             }
             examineTip = 0;
         }
-        if (imageActive == false && inExamineRange && Input.GetKeyDown(KeyCode.E)) //if examined, picture opened
+        if (inExamineRange && imageActive == false && Input.GetKeyDown(KeyCode.E)) //if examined, picture opened
         {
             imageActive = true;
             moveEnabled = false;
@@ -395,7 +395,7 @@ public class StoryController : MonoBehaviour
                 routineControl = StartCoroutine(dialoguePush(dialogueList[10], 1000f));
             }
         }
-        else if (imageActive == true && inExamineRange && Input.GetKeyDown(KeyCode.E) && allowDialogueExit)
+        else if (inExamineRange && imageActive == true &&  Input.GetKeyDown(KeyCode.E) && allowDialogueExit)
         {
             imageActive = false;
             boardImage.enabled = false;
