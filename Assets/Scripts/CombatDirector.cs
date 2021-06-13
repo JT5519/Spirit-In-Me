@@ -16,7 +16,7 @@ public class CombatDirector : MonoBehaviour
 
     /*behavior variables*/
     public int distanceState; //0 = near,1 = moderate, 2 = far
-    public int consecutiveEvades;
+    public int consecutiveEvades; 
     public int consecutiveDisappearances;
     /*behavior variables*/
 
@@ -40,7 +40,12 @@ public class CombatDirector : MonoBehaviour
     public float nearUpperLimit;
     public float farLowerLimit;
     public Transform demonBody;
-    private float distanceUpdateTimer;
+    //for consecutive disappearances
+    private Queue<DateTime> disappearancesQueue;
+    private float disappearancesTimer;
+    //for consecutive evades
+    private Queue<DateTime> evadesQueue;
+    private float evadesTimer;
 
     public DemonBehavior demonBehavior;
     void Awake()
@@ -68,16 +73,19 @@ public class CombatDirector : MonoBehaviour
         notInBalancedStateTimer = 0;
         playerStateTimer = 0.75f;
 
-        distanceUpdateTimer = 0f;
+        disappearancesQueue = new Queue<DateTime>();
+        disappearancesTimer = 0f;
+        evadesQueue = new Queue<DateTime>();
+        evadesTimer = 0.5f;
     }
 
-    public void updateAttackQueue(int damage) //call when attack lands on demon (in spiritHit.cs)
+    public void updateAttackQueue(int damage) //call when attack by player lands on demon (in spiritHit.cs)
     {
         ArrayList newAdd = new ArrayList() { damage, DateTime.Now };
         attacksQueue.Enqueue(newAdd);
     }
 
-    //to update distance and distanceState (call every 0.25 seconds)
+    //to update distance and distanceState (call every frame)
     void setDistanceAndState()
     {
         distance = Vector3.Distance(demonBody.position, playerManager.targetForTheRest.position);
@@ -88,6 +96,20 @@ public class CombatDirector : MonoBehaviour
         else
             distanceState = 2;
     }
+    public void updateDisappearancesQueue() //call when appearance finishes (in demonBehavior.cs)
+    {
+        disappearancesQueue.Enqueue(DateTime.Now);
+    } 
+    public void updateEvadesQueue() //call when attack by demon misses player (in demonBehavior.cs)
+    {
+        evadesQueue.Enqueue(DateTime.Now);
+        consecutiveEvades++;
+    }
+    public void flushEvadesQueue()
+    {
+        consecutiveEvades = 0;
+        evadesQueue.Clear();
+    } //call when attack lands by demon on player (in demonHit.cs)
 
     void Update()
     {
@@ -221,13 +243,51 @@ public class CombatDirector : MonoBehaviour
         }
 
         //behavior stimuli region
-        //distance updation (once every .25 seconds)
-        distanceUpdateTimer += Time.deltaTime;
-        if(distanceUpdateTimer>=0.25f)
+        //distance updation (once every frame)
+        setDistanceAndState();
+
+        //consecutive disappearances calculated (once a second)
+        disappearancesTimer += Time.deltaTime;
+        if(disappearancesTimer>=1f)
         {
-            distanceUpdateTimer = 0;
-            setDistanceAndState();
+            disappearancesTimer = 0f;
+            int dequeueCounter = 0;
+            //count over 20 sec ones
+            foreach (DateTime disappearanceTime in disappearancesQueue)
+            {
+                TimeSpan gap = DateTime.Now - disappearanceTime;
+                if (gap.TotalSeconds >= 20f)
+                    dequeueCounter++;
+            }
+            //remove over 20 sec ones
+            while (dequeueCounter != 0)
+            {
+                disappearancesQueue.Dequeue();
+                dequeueCounter--;
+            }
+            consecutiveDisappearances = disappearancesQueue.Count;
         }
 
+        //consecutive evades calculated (once a second)
+        evadesTimer += Time.deltaTime;
+        if(evadesTimer>=1f)
+        {
+            evadesTimer = 0f;
+            int dequeueCounter = 0;
+            //count over 10 sec ones
+            foreach (DateTime evadeTime in evadesQueue)
+            {
+                TimeSpan gap = DateTime.Now - evadeTime;
+                if (gap.TotalSeconds > 10f)
+                    dequeueCounter++;
+            }
+            //remove over 10 sec ones
+            while (dequeueCounter != 0)
+            {
+                evadesQueue.Dequeue();
+                dequeueCounter--;
+            }
+            consecutiveEvades = evadesQueue.Count;
+        }
     }
 }

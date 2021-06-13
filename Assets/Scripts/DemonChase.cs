@@ -39,12 +39,10 @@ public class DemonChase : MonoBehaviour
             if (playerManager.isSpirit)
             {
                 Target = GameObject.Find("SpiritHTP(Clone)").transform;
-                DemonHit.playerHurtSound = Target.gameObject.GetComponent<AudioSource>();
             }
             else
             {
                 Target = GameObject.Find("Player").transform;
-                DemonHit.playerHurtSound = Target.gameObject.GetComponent<AudioSource>();
             }
         }
         if (!pause && Target != null)

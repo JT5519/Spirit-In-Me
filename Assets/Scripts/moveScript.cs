@@ -17,14 +17,14 @@ public class moveScript : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        //wake up door rigidbody 
-        if (hit.collider.tag == "door")
+       /*if (hit.collider.tag == "door")
         {
             if (hit.gameObject.name != "mainDoor")
             {
                 hit.gameObject.GetComponent<Rigidbody>().WakeUp();
             }
-        }
+        }*/
+
         //kick the football 
         if (hit.collider.tag == "ball")
         {

@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiritAnim: {fileID: 7844403461432136231}
-  demonHurtSound: {fileID: 8300000, guid: 269ef5a5ce35a5e48ad069c02c5fbcfc, type: 3}
+  demonHurtSound: {fileID: 8300000, guid: ac1efa0d630263547bd3862a51428130, type: 3}
 --- !u!65 &3168833757558621212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -305,7 +305,6 @@ GameObject:
   - component: {fileID: 7844403461432136230}
   - component: {fileID: 7844403461432136225}
   - component: {fileID: 7844403461432136224}
-  - component: {fileID: 7844403461432136227}
   - component: {fileID: 7844403461432136231}
   - component: {fileID: 7844403461432136228}
   m_Layer: 8
@@ -381,20 +380,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7844403461432136227
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7844403461432136226}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &7844403461432136231
 Animator:
   serializedVersion: 3
@@ -437,7 +422,6 @@ GameObject:
   - component: {fileID: 7844403461640213732}
   - component: {fileID: 7844403461640213739}
   - component: {fileID: 7844403461640213738}
-  - component: {fileID: 7844403461640213733}
   m_Layer: 8
   m_Name: Face
   m_TagString: Untagged
@@ -508,19 +492,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7844403461640213733
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7844403461640213735}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7844403461889746174
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,4 +854,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiritAnim: {fileID: 7844403461432136231}
-  demonHurtSound: {fileID: 8300000, guid: 269ef5a5ce35a5e48ad069c02c5fbcfc, type: 3}
+  demonHurtSound: {fileID: 8300000, guid: ac1efa0d630263547bd3862a51428130, type: 3}
