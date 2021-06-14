@@ -6,12 +6,12 @@ using UnityEngine;
 public class CombatDirector : MonoBehaviour
 {
     /*state variables*/
-    public bool lowHealth;
-    public bool highDamageBeingTaken;
-    public bool playerTerrified;
-    public bool healthGapHigh;
-    public bool goToBalanced;
-    public bool isHuman;
+    public bool lowHealth; //perpetual
+    private bool highDamageBeingTaken; //long term
+    private bool playerTerrified; //long term
+    public bool healthGapHigh; //short term
+    private bool goToBalanced; //long term
+    public bool isHuman; //short term
     /*state variables*/
 
     /*behavior variables*/
@@ -24,15 +24,21 @@ public class CombatDirector : MonoBehaviour
     //for damage taken
     private Queue<ArrayList> attacksQueue;
     private float damageTakenTimer; 
+    public bool highDamageTakenEffect;
+    private int highDamageEffectTimer;
     //for player style 
     private float terrorCheckTimer;
     private int runawayCounter;
+    public bool playerTerrifiedEffect;
+    private int playerTerrifiedEffectTimer;
     //for healthgap
     private float healthGapTimer;
     private float gapThreshhold;
     //go to balanced
     private float stateCheckTimer;
     private int notInBalancedStateTimer;
+    public bool beBalancedEffect;
+    private int beBalancedTimer;
     //for player state
     private float playerStateTimer;
     //for distance
@@ -59,18 +65,23 @@ public class CombatDirector : MonoBehaviour
 
         nearUpperLimit = 5f;
         farLowerLimit = 11f;
-        setDistanceAndState();
         consecutiveEvades = 0;
         consecutiveDisappearances = 0;
 
         attacksQueue = new Queue<ArrayList>();
         damageTakenTimer = 0f;
+        highDamageTakenEffect = false;
+        highDamageEffectTimer = 0;
         terrorCheckTimer = 0.5f;
         runawayCounter = 0;
+        playerTerrifiedEffect = false;
+        playerTerrifiedEffectTimer = 0;
         healthGapTimer = 0.25f;
         gapThreshhold = 20f;
         stateCheckTimer = 0f;
         notInBalancedStateTimer = 0;
+        beBalancedEffect = false;
+        beBalancedTimer = 0;
         playerStateTimer = 0.75f;
 
         disappearancesQueue = new Queue<DateTime>();
@@ -78,7 +89,10 @@ public class CombatDirector : MonoBehaviour
         evadesQueue = new Queue<DateTime>();
         evadesTimer = 0.5f;
     }
-
+    private void Start() //must happen after target is set in awake() of playerManager
+    {
+        setDistanceAndState();
+    }
     public void updateAttackQueue(int damage) //call when attack by player lands on demon (in spiritHit.cs)
     {
         ArrayList newAdd = new ArrayList() { damage, DateTime.Now };
@@ -114,7 +128,7 @@ public class CombatDirector : MonoBehaviour
     void Update()
     {
         //state stimuli region
-        //checking for demon health (every frame)
+        //checking for demon health (every frame) PERPETUAL
         if (DemonBeenHit.demonHealth < 45 && !lowHealth)
         {
             lowHealth = true; //when demon is at 1/4th health
@@ -122,7 +136,7 @@ public class CombatDirector : MonoBehaviour
         }
         else if(!lowHealth)
         {
-            //checking damage taken (once a second)
+            //checking damage taken (once a second) LONG TERM
             damageTakenTimer += Time.deltaTime;
             if (damageTakenTimer >= 1f)
             {
@@ -143,16 +157,30 @@ public class CombatDirector : MonoBehaviour
                 }
                 if (totalDamage >= 25 && !highDamageBeingTaken)
                 {
-                    highDamageBeingTaken = true;
-                    demonBehavior.stateChange();
+                    highDamageBeingTaken = true; //cause, short term
+                    if (!highDamageTakenEffect)
+                    {
+                        highDamageTakenEffect = true; //effect, long term
+                        demonBehavior.stateChange();
+                    }
                 }
                 else if (totalDamage < 25 && highDamageBeingTaken)
                 {
                     highDamageBeingTaken = false;
                 }
+                //counting down damage effect
+                if (highDamageTakenEffect)
+                    highDamageEffectTimer++;
+                //effect complete
+                if(highDamageEffectTimer>20)
+                {
+                    highDamageTakenEffect = false;
+                    highDamageEffectTimer = 0;
+                    demonBehavior.stateChange();
+                }
             }
 
-            //player terrified? (once a second)
+            //player terrified? (once a second) LONG TERM
             terrorCheckTimer += Time.deltaTime;
             if (terrorCheckTimer >= 1f)
             {
@@ -173,15 +201,28 @@ public class CombatDirector : MonoBehaviour
                 if (runawayCounter >=5 && !playerTerrified)
                 {
                     playerTerrified = true;
-                    demonBehavior.stateChange();
+                    if (!playerTerrifiedEffect)
+                    {
+                        playerTerrifiedEffect = true;
+                        demonBehavior.stateChange();
+                    }
                 }
                 else if(runawayCounter<5 && playerTerrified)
                 {
                     playerTerrified = false;
                 }
+                //effect calculation
+                if (playerTerrifiedEffect)
+                    playerTerrifiedEffectTimer++;
+                if(playerTerrifiedEffectTimer>20)
+                {
+                    playerTerrifiedEffect = false;
+                    playerTerrifiedEffectTimer = 0;
+                    demonBehavior.stateChange();
+                }
             }
 
-            //health gap (once in 2 seconds)
+            //health gap (once in 2 seconds)  SHORT TERM
             healthGapTimer += Time.deltaTime;
             if (healthGapTimer >= 2f)
             {
@@ -196,10 +237,11 @@ public class CombatDirector : MonoBehaviour
                 else if(playerHealthP - demonHealthP < gapThreshhold && healthGapHigh)
                 {
                     healthGapHigh = false;
+                    demonBehavior.stateChange();
                 }
             }
 
-            //state in the last minute (once a second)
+            //state in the last minute (once a second) LONG TERM
             stateCheckTimer += Time.deltaTime;
             if (stateCheckTimer >= 1f)
             {
@@ -217,15 +259,29 @@ public class CombatDirector : MonoBehaviour
                 if (notInBalancedStateTimer >= 60 && !goToBalanced)
                 {
                     goToBalanced = true;
-                    demonBehavior.stateChange();
+                    if (!beBalancedEffect)
+                    {
+                        beBalancedEffect = true;
+                        demonBehavior.stateChange();
+                    }
                 }
                 else if (notInBalancedStateTimer < 60 && goToBalanced)
                 {
                     goToBalanced = false;
                 }
+                //counting down balance effect
+                if (beBalancedEffect)
+                    beBalancedTimer++;
+                //effect complete
+                if (beBalancedTimer > 20)
+                {
+                    beBalancedEffect = false;
+                    beBalancedTimer = 0;
+                    demonBehavior.stateChange();
+                }
             }
 
-            //player state (once a second)
+            //player state (once a second) SHORT TERM
             playerStateTimer += Time.deltaTime;
             if (playerStateTimer >= 1f)
             {
@@ -238,6 +294,7 @@ public class CombatDirector : MonoBehaviour
                 else if(playerManager.isSpirit && isHuman)
                 {
                     isHuman = false;
+                    demonBehavior.stateChange();
                 }
             }
         }

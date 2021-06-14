@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DemonBehavior : MonoBehaviour
 {
+    public static bool demonCanDamage;
+
     /*state variables*/
     public static int demonState = 0; //1 = aggressive, 0 = balanced, -1 = distanced
     public CombatDirector combatDirector;
@@ -41,6 +43,8 @@ public class DemonBehavior : MonoBehaviour
 
     void Start()
     {
+        demonCanDamage = true;
+
         stateRandomizerTimer = 0f;
 
         pauseUpdate = false;
@@ -50,8 +54,8 @@ public class DemonBehavior : MonoBehaviour
         behaviorTime = 5f;
         behaviorTimer = 0f;
         hornAttackMoveSpeed = 50f;
-        hornAttackTime = 3f;
-        hornAttackTurnSpeed = 30f;
+        hornAttackTime = 1f;
+        hornAttackTurnSpeed = 180f;
 
         demonBody = transform.Find("Demon").gameObject;
         demonBodyAnimator = demonBody.GetComponent<Animator>();
@@ -66,17 +70,18 @@ public class DemonBehavior : MonoBehaviour
     //function to decide state
     public void stateChange()
     {
-        if(combatDirector.lowHealth)
+        stateRandomizerTimer = 0;
+        if (combatDirector.lowHealth)
         {
             demonState = -1;
             return;
         }
-        else if(combatDirector.highDamageBeingTaken)
+        else if(combatDirector.highDamageTakenEffect)
         {
             demonState = -1;
             return;
         }
-        else if (combatDirector.playerTerrified)
+        else if (combatDirector.playerTerrifiedEffect)
         {
             demonState = 1;
             return;
@@ -86,7 +91,7 @@ public class DemonBehavior : MonoBehaviour
             demonState = 1;
             return;
         }
-        else if (combatDirector.goToBalanced)
+        else if (combatDirector.beBalancedEffect)
         {
             demonState = 0;
             return;
@@ -131,12 +136,12 @@ public class DemonBehavior : MonoBehaviour
         {
             if (combatDirector.distanceState == 2 || combatDirector.distanceState == 1)
             {
-                //disappear far and appear near 50%
+                //disappear far and appear near 25%
                 //if disappeared--> attack = defence = 50, move CHASE
                 //else --> attack = def = 50, move HOVER
                 attackProbability = 50;
                 defenseProbability = 50;
-                if (Random.Range(0,100)%2==0)
+                if (Random.Range(1, 101) <= 25)
                 {
                     StartCoroutine(disappearF_appearN());
                     movementType = 1;
@@ -148,13 +153,13 @@ public class DemonBehavior : MonoBehaviour
             }
             else if (combatDirector.distanceState == 0)
             {
-                //disappear near and appear far 50%
+                //disappear near and appear far 25%
                 //if disappeared--> attack = defence = 50, move HOVER
                 //else --> attack = def = 50, move CHASE
                 attackProbability = 50;
                 defenseProbability = 50;
-                if (Random.Range(0, 100) % 2 == 0)
-                {
+                if (Random.Range(1, 101)<=25)
+                {                    
                     StartCoroutine(disappearN_appearF());
                     movementType = 0;
                 }
@@ -179,7 +184,7 @@ public class DemonBehavior : MonoBehaviour
                 //if disappeared--> ATTACK 100, DEFENCE 50, MOVE = HOVER
                 //else --> //ATTACK 10, DEFENCE 75, MOVE = BACKOFF
                 int dieRoll = Random.Range(1, 101);
-                int disappearProb = Mathf.Max(0, 100 - combatDirector.consecutiveDisappearances * 25);
+                int disappearProb = Mathf.Max(0, 100 - combatDirector.consecutiveDisappearances * 50);
                 if(dieRoll<=disappearProb)
                 {
                     //disappear near appear far
@@ -315,7 +320,7 @@ public class DemonBehavior : MonoBehaviour
         demonBodyAnimator.SetTrigger("Bow");
         yield return new WaitForSeconds(1f);
         float loopTimer = 0f;
-        while(loopTimer<hornAttackTime)
+        while(loopTimer<hornAttackTime && !PlayerBeenHit.beenHit && isInsideHouse(transform.position))
         {
             loopTimer += Time.deltaTime;
             demonTargetLooker.transform.LookAt(playerManager.targetForTheRest);
@@ -328,13 +333,15 @@ public class DemonBehavior : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while (!demonBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("DemonDefault"))
             yield return null;
-        //attack = 5 seconds, recovery = 0 seconds, total = 5 seconds
+        //attack done, recovery time
         notAttacking = true;
-        pauseAttackSelection = false;
-        if (DemonHit.beenHit)
-            DemonHit.beenHit = false;
+        if (PlayerBeenHit.beenHit)
+            PlayerBeenHit.beenHit = false;
         else
             combatDirector.updateEvadesQueue();
+        //attack = 3 seconds, recovery = 1 seconds, total = 4 seconds
+        yield return new WaitForSeconds(1f);
+        pauseAttackSelection = false;
         pauseMovement = false;
         if (singeMode)
             behaviorChange();
@@ -350,8 +357,8 @@ public class DemonBehavior : MonoBehaviour
             yield return null;
         //attack done, recovery time
         notAttacking = true;
-        if (DemonHit.beenHit)
-            DemonHit.beenHit = false;
+        if (PlayerBeenHit.beenHit)
+            PlayerBeenHit.beenHit = false;
         else
             combatDirector.updateEvadesQueue();
         yield return new WaitForSeconds(1f);
@@ -382,8 +389,8 @@ public class DemonBehavior : MonoBehaviour
             yield return new WaitForSeconds(1f);
             while (!demonBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("DemonDefault"))
                 yield return null;
-            if (DemonHit.beenHit)
-                DemonHit.beenHit = false;
+            if (PlayerBeenHit.beenHit)
+                PlayerBeenHit.beenHit = false;
         }
         //attack over, allow motion and recovery
         pauseMovement = false;
@@ -445,7 +452,7 @@ public class DemonBehavior : MonoBehaviour
     //extra functions
     bool isInsideHouse(Vector3 point)
     {
-        if(point.x>-44.46 && point.x<44.46 && point.y>0 && point.y<22 && point.z>-44.6 && point.z<44.6)
+        if(point.x>-43.05 && point.x<43.05 && point.y>2.75 && point.y<19.25 && point.z>-43.19 && point.z<43.19)
         {
             return true;
         }

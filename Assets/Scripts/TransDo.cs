@@ -89,4 +89,40 @@ public class TransDo : MonoBehaviour
         else if (other.gameObject.tag == "shutter")
             other.gameObject.GetComponent<MeshRenderer>().material = shutterOG;
     }
+    private void Start()
+    {
+        List<GameObject> objectList = new List<GameObject>(GameObject.FindGameObjectsWithTag("wall"));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("light")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("floor")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("stair")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("door")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("door 2")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("main door")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("main door 2")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("first floor")));
+        objectList.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("shutter")));
+        foreach (GameObject obj in objectList)
+        {
+            if (obj.gameObject.tag == "wall")
+                obj.gameObject.GetComponent<MeshRenderer>().material = wallT;
+            else if (obj.gameObject.tag == "light")
+                obj.gameObject.GetComponent<MeshRenderer>().material = lightT;
+            else if (obj.gameObject.tag == "floor")
+                obj.gameObject.GetComponent<MeshRenderer>().material = floorT;
+            else if (obj.gameObject.tag == "stair")
+                obj.gameObject.GetComponent<MeshRenderer>().material = stairT;
+            else if (obj.gameObject.tag == "door")
+                obj.gameObject.GetComponent<MeshRenderer>().material = doorT1;
+            else if (obj.gameObject.tag == "door 2")
+                obj.gameObject.GetComponent<MeshRenderer>().material = doorT2;
+            else if (obj.gameObject.tag == "main door")
+                obj.gameObject.GetComponent<MeshRenderer>().material = maindoorT1;
+            else if (obj.gameObject.tag == "main door 2")
+                obj.gameObject.GetComponent<MeshRenderer>().material = maindoorT2;
+            else if (obj.gameObject.tag == "first floor")
+                obj.gameObject.GetComponent<MeshRenderer>().material = firstFloorT;
+            else if (obj.gameObject.tag == "shutter")
+                obj.gameObject.GetComponent<MeshRenderer>().material = shutterT;
+        }
+    }
 }

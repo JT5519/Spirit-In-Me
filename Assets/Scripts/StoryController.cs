@@ -107,7 +107,7 @@ public class StoryController : MonoBehaviour
     public Transform demonEndPoint2;
     public GameObject demonHTP;
     public MeshRenderer demonMesh;
-    public DemonChase demonChaseScript;
+    public DemonBehavior demonBehaviorScript;
     public AudioSource demonSound;
     public Transform playerFinalPosition;
     public GameObject insideTrigger;
@@ -186,8 +186,9 @@ public class StoryController : MonoBehaviour
         preDemonTrig.SetActive(false);
         demonTrig.SetActive(false);
         cornerTrig.SetActive(false);
-        demonHTP.SetActive(false);
-        demonChaseScript.enabled = false;
+        //change to false the next two ones 
+        demonHTP.SetActive(true);
+        demonBehaviorScript.enabled = true;
         exitGame = false;
     }
     void Start()
@@ -716,7 +717,7 @@ public class StoryController : MonoBehaviour
             {
                 lilithDisappear = 2;
                 demonSound.Stop();
-                demonChaseScript.enabled = false;
+                demonBehaviorScript.enabled = false;
                 if (demonDiedInRoom == 1)
                 {
                     demonDiedInRoom = 2;
@@ -1281,7 +1282,7 @@ public class StoryController : MonoBehaviour
         }
         cinematicCam.enabled = false;
         cinematicCam.transform.SetParent(null);
-        demonChaseScript.enabled = true;
+        demonBehaviorScript.enabled = true;
         //fight begins
         moveEnabled = true;
         playerManager.transformEnabled = true;
@@ -1304,9 +1305,9 @@ public class StoryController : MonoBehaviour
     {
         //stop movement of player and demon
         moveEnabled = false;
-        demonChaseScript.enabled = false;
-        demonChaseScript.hitTimer = 0;
-        demonChaseScript.specialHitTimer = 0;
+        demonBehaviorScript.enabled = false;
+        /*demonBehaviorScript.hitTimer = 0;
+        demonBehaviorScript.specialHitTimer = 0;*/
         //once player health hits 0, playerManager ensures player is in spirit mode, for cutscene begining
         while (!playerManager.isSpirit)
             yield return null;

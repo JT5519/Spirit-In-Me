@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class tp2 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log(other.name+" has entered me");
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    private void OnTriggerStay(Collider other)
     {
-        transform.Translate(-5*Time.deltaTime,0, 0);
+        Debug.Log(other.name + " is in me");
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Stuff left trigger");
     }
 }

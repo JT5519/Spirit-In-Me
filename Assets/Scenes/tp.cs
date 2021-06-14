@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class tp : MonoBehaviour
 {
-    Rigidbody rb;
-    CharacterController cc;
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        //rb = GetComponent<Rigidbody>();
-        cc = GetComponent<CharacterController>();
+        Debug.Log(gameObject.name+" entered trigger");
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    private void OnTriggerStay(Collider other)
     {
-        //rb.MovePosition(transform.position+new Vector3(Input.GetAxis("Horizontal") * 10 * Time.deltaTime,
-        //  Input.GetAxis("Vertical") * 10 * Time.deltaTime, 0));
-        //transform.Translate(Input.GetAxis("Horizontal") * 10*Time.deltaTime, Input.GetAxis("Vertical") * 10*Time.deltaTime, 0);
-        cc.Move(new Vector3(Input.GetAxis("Horizontal") * 10 * Time.deltaTime, Input.GetAxis("Vertical") * 10 * Time.deltaTime, 0));
+        Debug.Log(gameObject.name + " is in trigger");
     }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Collided");
+        Debug.Log("I exited trigger");
     }
 }
     

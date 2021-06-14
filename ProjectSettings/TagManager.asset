@@ -24,6 +24,7 @@ TagManager:
   - Container
   - Demon
   - cornerTrigs
+  - block
   layers:
   - Default
   - TransparentFX

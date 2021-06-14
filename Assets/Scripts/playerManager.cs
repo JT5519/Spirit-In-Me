@@ -39,6 +39,7 @@ public class playerManager : MonoBehaviour
     private int spiritToCorp;
 
     public static Transform targetForTheRest; //updated in movescript and spiritmovement
+    public static bool playerCanDamage;
     private void Awake()
     {
         isSpirit = false;
@@ -46,6 +47,7 @@ public class playerManager : MonoBehaviour
         Fenabled = true; //when true, it means player is not in transition. When false, player is currently in transformation
         becomeSpirit = false; //short circuit to tranform player forcefully through script (only needed in cutscenes)
         targetForTheRest = player.transform;
+        playerCanDamage = true;
     }
     private void Start()
     {
@@ -186,7 +188,6 @@ public class playerManager : MonoBehaviour
         tempSpirit = Instantiate(spiritPrefab, player.transform.position, player.transform.rotation, container);
         targetForTheRest = tempSpirit.transform; //for all classes to see what current player position is irrespective of state, ELIMINATE targetChange
         //demon must attack spirit now not human
-        DemonChase.targetChanged = true; //change to combat director class
         //spirit effects enabled
         isSpirit = !isSpirit;
         blurEffect.active = true;
@@ -236,7 +237,6 @@ public class playerManager : MonoBehaviour
         player.SetActive(true);
         isSpirit = !isSpirit;
         targetForTheRest = player.transform;
-        DemonChase.targetChanged = true; //change to combat director class
         yield return null; //yield point 1: to let the demon change target right, then allow transformation, just a one frame wait 
         Fenabled = true;
         spiritToCorp = 0;

@@ -11,14 +11,9 @@ public class shoot : MonoBehaviour
     public Transform container; //parent of all bullets for ordered instantiation and deletion
     public float speed = 100f;
     
-    private float healTimer = 45f;
     private bool shootAgain = true; //variable to trigger salt collection reminder
-    public Animator leftHandAnim;
-    public GameObject healZonePrefab;
-    public Transform leftHandPosition;
     void Update()
     {
-        healTimer += Time.deltaTime; //add if condition for demonfight start
         //salt ammo collected and left click pressed are primary conditions
         if (Input.GetMouseButtonDown(0) && StoryController.saltCollected == 2)
         {
@@ -48,12 +43,6 @@ public class shoot : MonoBehaviour
             {
                 StoryController.saltRemind = 1;
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && healTimer>45f && StoryController.saltCollected == 2 && !follow.fpsMode) //&& demon fight starts
-        {
-            healTimer = 0f;
-            leftHandAnim.SetTrigger("Heal");
-            Instantiate(healZonePrefab, leftHandPosition.position, leftHandPosition.rotation, container);
         }
     }
     IEnumerator waitAWhile()
