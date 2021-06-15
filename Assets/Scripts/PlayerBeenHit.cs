@@ -21,7 +21,7 @@ public class PlayerBeenHit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!beenHit && DemonBehavior.demonCanDamage && other.name == "handTrigger" 
+        if (!beenHit && !BlockBeenHit.blockBeenHit && DemonBehavior.demonCanDamage && other.name == "handTrigger" 
             && demonAnim.GetCurrentAnimatorStateInfo(0).IsName("DemonLean")
             && demonAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f
             && demonAnim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.75f)
@@ -75,7 +75,7 @@ public class PlayerBeenHit : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (!beenHit && DemonBehavior.demonCanDamage && other.name == "handTrigger"
+        if (!beenHit && !BlockBeenHit.blockBeenHit && DemonBehavior.demonCanDamage && other.name == "handTrigger"
             && demonAnim.GetCurrentAnimatorStateInfo(0).IsName("DemonLean")
             && demonAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f
             && demonAnim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.75f)

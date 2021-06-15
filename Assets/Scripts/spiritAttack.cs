@@ -39,13 +39,11 @@ public class spiritAttack : MonoBehaviour
         if(spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Block") && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime>=.2 
             && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime<=.75)
         {
-            if(!blocktrigger.activeSelf)
+            if (!blocktrigger.activeSelf)
                 blocktrigger.SetActive(true);
         }
         else if(blocktrigger.activeSelf)
-        {
             blocktrigger.SetActive(false);
-        }
     }
 }
 

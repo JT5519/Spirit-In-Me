@@ -360,7 +360,11 @@ public class DemonBehavior : MonoBehaviour
         if (PlayerBeenHit.beenHit)
             PlayerBeenHit.beenHit = false;
         else
+        {
             combatDirector.updateEvadesQueue();
+            if (BlockBeenHit.blockBeenHit)
+                BlockBeenHit.blockBeenHit = false;
+        }
         yield return new WaitForSeconds(1f);
         //attack = 1 second, recover = 1 second, total = 2 seconds
         pauseAttackSelection = false;
@@ -391,6 +395,8 @@ public class DemonBehavior : MonoBehaviour
                 yield return null;
             if (PlayerBeenHit.beenHit)
                 PlayerBeenHit.beenHit = false;
+            else if (BlockBeenHit.blockBeenHit)
+                BlockBeenHit.blockBeenHit = false;
         }
         //attack over, allow motion and recovery
         pauseMovement = false;

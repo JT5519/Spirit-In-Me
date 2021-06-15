@@ -18026,7 +18026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e76e9615807e44280b76313cf2a53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  demonHitClip: {fileID: 0}
+  demonHitClip: {fileID: 8300000, guid: ac1efa0d630263547bd3862a51428130, type: 3}
   insideTrigger: {fileID: 1645543609}
   outsideTrigger: {fileID: 445822290}
 --- !u!54 &1030513240
