@@ -1,0 +1,144 @@
+Using pre-set license
+Built from '2020.3/release' branch; Version is '2020.3.7f1 (dd97f2c94397) revision 14522354'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home; OS build 19042.1052; Version 2009; 64bit' Language: 'en' Physical Memory: 8067 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.7f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Users/joels/Desktop/Github Repos/Spirit-In-Me
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+49745
+Successfully changed project path to: C:/Users/joels/Desktop/Github Repos/Spirit-In-Me
+C:/Users/joels/Desktop/Github Repos/Spirit-In-Me
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 216.43 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.7f1 (dd97f2c94397)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/joels/Desktop/Github Repos/Spirit-In-Me/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon HD 7600M Series (ID=0x6840)
+    Vendor:   
+    VRAM:     1004 MB
+    Driver:   15.201.1151.1008
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56200
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.007465 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 200.83 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.731 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004475 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 222.02 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.573 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Refreshing native plugins compatible for Editor in 1.36 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2472 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 123.9 MB.
+System memory in use after: 124.1 MB.
+
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 2914.
+Total: 5.887000 ms (FindLiveObjects: 0.646500 ms CreateObjectMapping: 0.355000 ms MarkObjects: 4.696400 ms  DeleteObjects: 0.186000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Prefabs/SpiritHTP.prefab
+  artifactKey: Guid(72bc4690972468443a3d1659c14ca9af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/SpiritHTP.prefab using Guid(72bc4690972468443a3d1659c14ca9af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a9d0f2ef990577c9bb4c17b326cf265') in 0.878798 seconds
+  Import took 0.891536 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000726 seconds.
+  path: Assets/Prefabs/SaltShot.prefab
+  artifactKey: Guid(6ca1e156b4d7ed44e99ce996b4c00ee3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/SaltShot.prefab using Guid(6ca1e156b4d7ed44e99ce996b4c00ee3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11b90720579264fe955b3fb3d3697009') in 0.072511 seconds
+  Import took 0.083239 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1117.222154 seconds.
+  path: Assets/Scripts/DemonBeenHit.cs
+  artifactKey: Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/DemonBeenHit.cs using Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd64551f1b741e343ed7d1bda630840') in 0.077471 seconds
+  Import took 0.092619 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 75.334270 seconds.
+  path: Assets/Scripts/DemonBeenHit.cs
+  artifactKey: Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/DemonBeenHit.cs using Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ded12008b2e0a1606bef3c5a360e9f75') in 0.039955 seconds
+  Import took 0.056559 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.805817 seconds.
+  path: Assets/Scripts/DemonBeenHit.cs
+  artifactKey: Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/DemonBeenHit.cs using Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae07f2160dc724a63efc564a33a6a8f9') in 0.008565 seconds
+  Import took 0.020879 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.980888 seconds.
+  path: Assets/Scripts/DemonBeenHit.cs
+  artifactKey: Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/DemonBeenHit.cs using Guid(b5e76e9615807e44280b76313cf2a53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb640c085c51b772f16eb7d0f02cca06') in 0.013158 seconds
+  Import took 0.028610 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004749 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.26 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.255 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.35 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2352 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 121.2 MB.
+System memory in use after: 121.4 MB.
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2966.
+Total: 7.198100 ms (FindLiveObjects: 1.111100 ms CreateObjectMapping: 0.557500 ms MarkObjects: 5.469200 ms  DeleteObjects: 0.050900 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

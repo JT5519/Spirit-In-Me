@@ -36,14 +36,20 @@ public class spiritAttack : MonoBehaviour
             spiritAnim.SetTrigger("Block");
         }
         //block trigger activate
-        if(spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Block") && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime>=.2 
-            && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime<=.75)
+        if (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("Spirit Block")) 
         {
             if (!blocktrigger.activeSelf)
+            {
                 blocktrigger.SetActive(true);
+                Debug.Log("Block Active");
+            }
         }
-        else if(blocktrigger.activeSelf)
+        else if (blocktrigger.activeSelf)
+        {
             blocktrigger.SetActive(false);
+            Debug.Log("Block Over");
+        }
     }
 }
-
+/*&& spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime>=.2 
+            && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime<=.75)*/

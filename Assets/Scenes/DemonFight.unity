@@ -19244,6 +19244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561c609ee579af54fad07e969cfdcbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatDirector: {fileID: 1401207666}
   dialogueText: {fileID: 1459250263}
   tipText: {fileID: 1796626447}
   demonDialogueText: {fileID: 522974747}
@@ -24917,10 +24918,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1408519001}
   - component: {fileID: 1408519002}
-  - component: {fileID: 1408519003}
   m_Layer: 11
   m_Name: hornTrigger
-  m_TagString: Untagged
+  m_TagString: demon weapons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24952,19 +24952,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1768105, y: 1.1912682, z: 1.0154574}
   m_Center: {x: 0.006314644, y: 0.095634036, z: -0.028465135}
---- !u!114 &1408519003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408519000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb9f3d66b134824a8b7a0f3397e6fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockSound: {fileID: 0}
 --- !u!1 &1414345376
 GameObject:
   m_ObjectHideFlags: 0
@@ -27056,7 +27043,6 @@ GameObject:
   - component: {fileID: 1518920710}
   - component: {fileID: 1518920713}
   - component: {fileID: 1518920712}
-  - component: {fileID: 1518920714}
   m_Layer: 11
   m_Name: right lower arm
   m_TagString: Untagged
@@ -27127,19 +27113,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518920709}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1518920714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518920709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb9f3d66b134824a8b7a0f3397e6fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockSound: {fileID: 0}
 --- !u!1001 &1524810163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36907,7 +36880,6 @@ GameObject:
   - component: {fileID: 2067729244}
   - component: {fileID: 2067729247}
   - component: {fileID: 2067729246}
-  - component: {fileID: 2067729248}
   m_Layer: 11
   m_Name: left lower arm
   m_TagString: Untagged
@@ -36979,19 +36951,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067729243}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2067729248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067729243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb9f3d66b134824a8b7a0f3397e6fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockSound: {fileID: 0}
 --- !u!1 &2076022460
 GameObject:
   m_ObjectHideFlags: 0
@@ -37321,10 +37280,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2098936426}
   - component: {fileID: 2098936428}
-  - component: {fileID: 2098936427}
   m_Layer: 11
   m_Name: handTrigger
-  m_TagString: Untagged
+  m_TagString: demon weapons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37343,19 +37301,6 @@ Transform:
   m_Father: {fileID: 397912813}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2098936427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098936425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb9f3d66b134824a8b7a0f3397e6fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockSound: {fileID: 0}
 --- !u!65 &2098936428
 BoxCollider:
   m_ObjectHideFlags: 0

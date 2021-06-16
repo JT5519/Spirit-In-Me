@@ -61,7 +61,9 @@ public class DemonBeenHit : MonoBehaviour
         {
             Animator spiritAnim = playerManager.targetForTheRest.GetComponentInChildren<Animator>();
             if (!beenHit && playerManager.playerCanDamage && 
-                (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") || spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack")))
+                (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") || spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack"))
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= .25
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime <= .75)
             {
                 beenHit = true;
                 //reduce health
@@ -73,7 +75,8 @@ public class DemonBeenHit : MonoBehaviour
                 demonAudioSource.PlayOneShot(demonHitClip);
             }
             else if(!beenHit && playerManager.playerCanDamage &&
-                spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("PowerAttack"))
+                spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("PowerAttack")
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime>=.6)
             {
                 beenHit = true;
                 //reduce health
@@ -103,7 +106,9 @@ public class DemonBeenHit : MonoBehaviour
         {
             Animator spiritAnim = playerManager.targetForTheRest.GetComponentInChildren<Animator>();
             if (!beenHit && playerManager.playerCanDamage &&
-                (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") || spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack")))
+                (spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("LeftAttack") || spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("RightAttack"))
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime>=.25 
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime<=.75)
             {
                 beenHit = true;
                 //reduce health
@@ -115,7 +120,8 @@ public class DemonBeenHit : MonoBehaviour
                 demonAudioSource.PlayOneShot(demonHitClip);
             }
             else if (!beenHit && playerManager.playerCanDamage &&
-                spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("PowerAttack"))
+                spiritAnim.GetCurrentAnimatorStateInfo(0).IsName("PowerAttack")
+                && spiritAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= .6)
             {
                 beenHit = true;
                 //reduce health

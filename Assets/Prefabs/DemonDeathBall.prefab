@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1756648768695705085}
   m_Layer: 11
   m_Name: DemonDeathBall
-  m_TagString: Untagged
+  m_TagString: demon weapons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

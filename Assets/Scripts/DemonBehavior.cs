@@ -18,7 +18,6 @@ public class DemonBehavior : MonoBehaviour
     private bool pauseAttackSelection; //pause selection of new attack when current attack is happening
     private bool notAttacking; //to check if attack is happening (demon is not attacking during recovery and noAttack co-routine)
     private int attackProbability;
-    private int defenseProbability;
     private int movementType; //0 = hover,1 = chase, -1 = backoff
     private float behaviorTime;
     private float behaviorTimer;
@@ -29,7 +28,7 @@ public class DemonBehavior : MonoBehaviour
 
     /*self variables*/
     public GameObject demonBody;
-    private Animator demonBodyAnimator;
+    public static Animator demonBodyAnimator;
     private GameObject demonTargetLooker;
     private float demonMoveSpeed;
     /*self variables*/
@@ -127,8 +126,7 @@ public class DemonBehavior : MonoBehaviour
             else if(combatDirector.distanceState==0)
             {
                 //attack 100, defence 10, movement CHASE
-                attackProbability = 100;
-                defenseProbability = 10;
+                attackProbability = 100;                
                 movementType = 1;
             }
         }
@@ -140,7 +138,6 @@ public class DemonBehavior : MonoBehaviour
                 //if disappeared--> attack = defence = 50, move CHASE
                 //else --> attack = def = 50, move HOVER
                 attackProbability = 50;
-                defenseProbability = 50;
                 if (Random.Range(1, 101) <= 25)
                 {
                     StartCoroutine(disappearF_appearN());
@@ -157,7 +154,6 @@ public class DemonBehavior : MonoBehaviour
                 //if disappeared--> attack = defence = 50, move HOVER
                 //else --> attack = def = 50, move CHASE
                 attackProbability = 50;
-                defenseProbability = 50;
                 if (Random.Range(1, 101)<=25)
                 {                    
                     StartCoroutine(disappearN_appearF());
@@ -175,7 +171,6 @@ public class DemonBehavior : MonoBehaviour
             {
                 //ATTACK 100, DEFENCE 50, MOVE = HOVER
                 attackProbability = 100;
-                defenseProbability = 50;
                 movementType = 0;
             }
             else if (combatDirector.distanceState == 1 || combatDirector.distanceState == 0)
@@ -193,7 +188,6 @@ public class DemonBehavior : MonoBehaviour
                 else
                 {
                     attackProbability = 10;
-                    defenseProbability = 75;
                     movementType = -1;
                 }
             }

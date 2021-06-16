@@ -184,7 +184,7 @@ BoxCollider:
   m_GameObject: {fileID: 11479615814565730}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.0434952, y: 2.7579124, z: 3.9443698}
   m_Center: {x: 0.067827195, y: -0.22216278, z: 1.472175}
@@ -321,7 +321,6 @@ GameObject:
   - component: {fileID: 7844403461407022278}
   - component: {fileID: 7844403461407022277}
   - component: {fileID: 7844403461407022276}
-  - component: {fileID: 852400835}
   - component: {fileID: 3168833757558621212}
   m_Layer: 11
   m_Name: lefthand
@@ -393,20 +392,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &852400835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7844403461407022273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc422c9beb1b4741bfbdb4f8ea4e237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spiritAnim: {fileID: 7844403461432136231}
-  demonHurtSound: {fileID: 8300000, guid: ac1efa0d630263547bd3862a51428130, type: 3}
 --- !u!65 &3168833757558621212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -897,7 +882,6 @@ GameObject:
   - component: {fileID: 7844403463315120405}
   - component: {fileID: 7844403463315120404}
   - component: {fileID: 728454895}
-  - component: {fileID: 728454897}
   m_Layer: 11
   m_Name: righthand
   m_TagString: Untagged
@@ -981,17 +965,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8796923, y: 4.2514505, z: 1.0000001}
   m_Center: {x: -0.102159366, y: -1.1257255, z: -0.00000005960465}
---- !u!114 &728454897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7844403463315120401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc422c9beb1b4741bfbdb4f8ea4e237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spiritAnim: {fileID: 7844403461432136231}
-  demonHurtSound: {fileID: 8300000, guid: ac1efa0d630263547bd3862a51428130, type: 3}

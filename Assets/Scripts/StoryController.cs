@@ -46,6 +46,9 @@ public class StoryController : MonoBehaviour
     public static int examineTip;
     public static int waitForInstructionFinish; //first time player transforms to spirit mode
 
+    public static bool combatHasBegun;
+    public GameObject combatDirector;
+
     //dialogues and tip lists 
     private List<string> dialogueList = new List<string>();
     private List<string> demonDialogueList = new List<string>();
@@ -156,6 +159,7 @@ public class StoryController : MonoBehaviour
         giveTip1 = 0;
         examineTip = 0;
         waitForInstructionFinish = 0;
+        combatHasBegun = true;
         penguinApproach = 0;
         demonTrails = 0;
         demonWarning = 0;
@@ -1226,6 +1230,7 @@ public class StoryController : MonoBehaviour
             dialogueText.enabled = false;
         }
         //demon ascends from the living room (ironic)
+        combatDirector.SetActive(true); //combat director active-------------------------------------------------------------------------
         demonHTP.SetActive(true);
         demonHTP.transform.position = demonSpawnPoint.position;
         demonHTP.transform.rotation = demonSpawnPoint.rotation;
@@ -1287,6 +1292,7 @@ public class StoryController : MonoBehaviour
         moveEnabled = true;
         playerManager.transformEnabled = true;
         monologuing = false;
+        combatHasBegun = true;//combat has begun ----------------------------------------------------------------
         //cleanup of remaining triggers in the house
         if (!chessTrigDestroyed)
         {
@@ -1306,8 +1312,6 @@ public class StoryController : MonoBehaviour
         //stop movement of player and demon
         moveEnabled = false;
         demonBehaviorScript.enabled = false;
-        /*demonBehaviorScript.hitTimer = 0;
-        demonBehaviorScript.specialHitTimer = 0;*/
         //once player health hits 0, playerManager ensures player is in spirit mode, for cutscene begining
         while (!playerManager.isSpirit)
             yield return null;
@@ -1396,10 +1400,12 @@ public class StoryController : MonoBehaviour
         cinematicCam.enabled = false;
         camAn.SetTrigger("zoomOut");
         demonHTP.SetActive(false);
+        combatDirector.SetActive(false);// combat director false--------------------------------------------
         switchLighting.SetToDay();
         playerManager.becomeSpirit = true;
         while (playerManager.isSpirit)
             yield return null;
+        combatHasBegun = false; //combat has ended-----------------------------------------------------------
         respawnAtCheckPoint();
         deathObject.resetDeath();
         faintObject.resetFaint();
@@ -1759,7 +1765,7 @@ public class StoryController : MonoBehaviour
             colliderTriggers[i].GetComponent<demonAppear>().beenHit = false;
         }
         cornerTrig.SetActive(false);
-        spiritHit.spiritCantHurtDemon = false;
-        DemonHit.demonCantHurtSpirit = false;
+        playerManager.playerCanDamage = true;
+        DemonBehavior.demonCanDamage = true;
     }
 }

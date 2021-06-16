@@ -25,6 +25,7 @@ TagManager:
   - Demon
   - cornerTrigs
   - block
+  - demon weapons
   layers:
   - Default
   - TransparentFX
