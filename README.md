@@ -48,6 +48,7 @@ Some factors have long term effects. For example if the high damage taken factor
 * Changes moment to moment
 * Influenced by layer 1 STATE, similar to emotions influencing behavior
 
+<img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
 
 ## Some other games by me
 * [FPPPS - An FPS game](https://github.com/JT5519/First-FPS)
