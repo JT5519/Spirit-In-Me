@@ -50,7 +50,7 @@ Some factors have long term effects. For example if the high damage taken factor
 
 <img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
 
-CD - Consecutive Disappearances
+CD - Consecutive Disappearances<br/>
 That explains the enemy AI working in detail.
 
 ## Some other games by me
