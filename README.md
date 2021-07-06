@@ -1,5 +1,5 @@
 # Spirit-In-Me
-Click [here](https://jt5519.github.io/Spirit-In-Me-Game/index.html) to play the game on a GitHub static page!
+
 
 # Game Details
 * Survival/Action Horror
