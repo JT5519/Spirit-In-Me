@@ -49,7 +49,7 @@ Some factors have long term effects. For example if the high damage taken factor
 * Influenced by layer 1 STATE, similar to emotions influencing behavior
 
 <img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
-
+*Click image for clarity <br/>
 CD - Consecutive Disappearances<br/>
 
 ## Attack Selection Function
