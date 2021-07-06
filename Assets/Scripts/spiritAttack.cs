@@ -41,13 +41,11 @@ public class spiritAttack : MonoBehaviour
             if (!blocktrigger.activeSelf)
             {
                 blocktrigger.SetActive(true);
-                Debug.Log("Block Active");
             }
         }
         else if (blocktrigger.activeSelf)
         {
             blocktrigger.SetActive(false);
-            Debug.Log("Block Over");
         }
     }
 }

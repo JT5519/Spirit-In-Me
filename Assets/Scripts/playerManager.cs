@@ -43,7 +43,7 @@ public class playerManager : MonoBehaviour
     private void Awake()
     {
         isSpirit = false;
-        transformEnabled = true; //to enable or disable transformation
+        transformEnabled = false; //to enable or disable transformation
         Fenabled = true; //when true, it means player is not in transition. When false, player is currently in transformation
         becomeSpirit = false; //short circuit to tranform player forcefully through script (only needed in cutscenes)
         targetForTheRest = player.transform;
@@ -61,7 +61,7 @@ public class playerManager : MonoBehaviour
         vignetteEffect.active = true;
         vignetteEffect.intensity.Override(0f);
         blastingOffAgain = new Vector3(1000, 1000, 1000);
-        playerHealth = 100;
+        playerHealth = 200;
         healthRecoveryTimer = 0f;
         stopRecovery = false;
         stubDestroyed = true;

@@ -27,7 +27,7 @@ public class PlayerBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 combatDirectorScript.flushEvadesQueue();
-                playerManager.playerHealth -= 0; //change to 10
+                playerManager.playerHealth -= 10; //change to 10
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;
@@ -41,7 +41,7 @@ public class PlayerBeenHit : MonoBehaviour
                 beenHit = true;
                 combatDirectorScript.flushEvadesQueue();
                 //StartCoroutine(hornDamageEnable());
-                playerManager.playerHealth -= 0; //change to 25
+                playerManager.playerHealth -= 25; //change to 25
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;
@@ -50,7 +50,7 @@ public class PlayerBeenHit : MonoBehaviour
             }
             else if (other.name == "DemonDeathBall(Clone)" && DemonBehavior.demonCanDamage)
             {
-                playerManager.playerHealth -= 0; //change to required damage
+                playerManager.playerHealth -= 10; //change to required damage
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;
@@ -84,7 +84,7 @@ public class PlayerBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 combatDirectorScript.flushEvadesQueue();
-                playerManager.playerHealth -= 0; //change to 10
+                playerManager.playerHealth -= 10; //change to 10
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;
@@ -98,7 +98,7 @@ public class PlayerBeenHit : MonoBehaviour
                 beenHit = true;
                 combatDirectorScript.flushEvadesQueue();
                 //StartCoroutine(hornDamageEnable());
-                playerManager.playerHealth -= 0; //change to 25
+                playerManager.playerHealth -= 25; //change to 25
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;
@@ -107,7 +107,7 @@ public class PlayerBeenHit : MonoBehaviour
             }
             else if (other.name == "DemonDeathBall(Clone)" && DemonBehavior.demonCanDamage)
             {
-                playerManager.playerHealth -= 0; //change to required damage
+                playerManager.playerHealth -= 10; //change to required damage
                 if (playerManager.playerHealth < 0)
                 {
                     playerManager.playerHealth = 0;

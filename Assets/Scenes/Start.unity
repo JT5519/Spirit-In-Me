@@ -208,7 +208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.65
+  m_fontSize: 57.3
   m_fontSizeBase: 63.07
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.65
+  m_fontSize: 62.35
   m_fontSizeBase: 46.7
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.1
+  m_fontSize: 73
   m_fontSizeBase: 63.07
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 79.35
   m_fontSizeBase: 63.07
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1562,8 +1562,8 @@ MonoBehaviour:
     to your hunting knowledge, you have the gift of clairvoyancy..though the extent
     to which you have mastered it is unheard of. Use this ability to your advantage.
     How to use it will be revealed when required.\n\n CONTROLS:\n WASD / Arrow Keys
-    : Movement\n Left Shift [HOLD] + movement keys: Fast movement\n Mouse - Look\nRMB
-    - Aim\n LMB - Shoot \n F - ability (unlocks later in game)"
+    : Movement\n Left Shift [HOLD] + movement keys: Fast movement\n Mouse - Look\n
+    RMB - Aim\n LMB - Shoot \n F - ability (unlocks later in game)"
 --- !u!222 &927841266
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1735,7 +1735,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.85
+  m_fontSize: 50.1
   m_fontSizeBase: 46.7
   m_fontWeight: 400
   m_enableAutoSizing: 1

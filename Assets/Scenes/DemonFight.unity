@@ -2593,18 +2593,20 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\n                                                      DEMON WARNING:
     POSITIVELY HEED ADVICE\n\n  Good Job! You collected the salt on time..else the
-    penguin had a surprise worth dying for.\n\n  DO NOT GET COCKY THOUGH. Demons
-    are extremely powerful and malevolent entities. DO NOT take one \n  on in direct
-    combat, YOU WILL NOT SURVIVE. \n\n  Fortunately, while they are orders of magnitude
-    stronger than human spirits, you have a human form too.  \n  SALT is your best
-    friend, learn to use it wisely and demons become slightly easier to beat...slightly.\n\n 
-    Another word of advice, TIMING DODGES is of utmost importance, move out of the
-    way of those nasty\n  horns. \n  AGILITY is key, you don't stand still or run
-    in a straight line when facing a charging bull, don't do it here \n  either.\n\n 
-    You can only hurt a demon in SPIRIT mode...salt while essential, will not hurt
-    a demon. To use your salt gun \n  you need to be in in your CORPOREAL form, to
-    hurt the demon you need to be in your SPIRIT form. Finding \n  rhythm is essential.
-    \n  Lilith Awaits. Godspeed hunter."
+    penguin had a surprise worth dying for.\n\n  Don't get cocky though, you have
+    caught the attention of something extremely malevolent. Watch yourself\n  \n 
+    Remember hunter, demons will always win in all out warfare, use your wits and
+    learn their limitations, all of them\n  have some. Use these limitations to your
+    advantage and you will come out of this alive. \n\n  Lilith is one of the more
+    experienced ones, she's older than the planet, and she will stop at nothing to
+    \n  please lucifer.\n\n  What we know of Lilith:\n  * She loves using her horns,
+    avoid them, they cannot be stopped. Her arms however, you can try blocking \n 
+    * She has a wide range of attacks in her arsenal and can get you from any distance,
+    stay alert of her position\n     at all times\n  * She may seem like a raging
+    bull but she is agile as well. She can turn during attacks and so can her projectiles\n 
+    * Salt has no effect on her, don't waste your time and risk your life seasoning
+    her \n  * She is unpredictable as hell, and will disappear and reappear to throw
+    you off, listen close for her voice. \n\n  Beyond lies Lilith. Godspeed Hunter."
 --- !u!222 &118241055
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9708,7 +9710,7 @@ Transform:
   m_Children:
   - {fileID: 2080870725}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!136 &554899953
 CapsuleCollider:
@@ -12795,7 +12797,7 @@ PrefabInstance:
     - target: {fileID: 7844403461979508225, guid: 72bc4690972468443a3d1659c14ca9af,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7844403461979508225, guid: 72bc4690972468443a3d1659c14ca9af,
         type: 3}
@@ -19230,7 +19232,7 @@ Transform:
   m_Children:
   - {fileID: 1383285368}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1085076516
 MonoBehaviour:
@@ -21101,10 +21103,10 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\n                                                                  CONTROL
     SCHEME REVISION\n\n CORPOREAL MODE:\n WASD/Arrow Keys  - Movement\n Left Shift
-    [HOLD] + movement keys - Faster Movement\n\n Mouse - Look \n RMB - Aim\n LMB
-    - Shoot\n\n SPIRIT MODE\n WASD/Arrow Keys  - Movement \n Left Shift - Descend\nSpace
-    Bar - Ascend\n \n Mouse - Look\n LMB  - Melee Attack (Melee attack must be in
-    range to cause damage)\n \n F - Switch Modes\n\n"
+    [HOLD] + movement keys - Faster Movement\n Mouse - Look \n RMB - Aim\n LMB -
+    Shoot\n\n SPIRIT MODE\n WASD/Arrow Keys  - Movement \n Left Shift - Descend\n
+    Space Bar - Ascend \n Mouse - Look\n LMB,RMB, Middle Mouse  - Melee Attacks \n
+    Left Control - Block\n \n F - Switch Modes\n\n"
 --- !u!222 &1215914516
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21864,7 +21866,7 @@ Transform:
   - {fileID: 562958674}
   - {fileID: 1213463775}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1254284822
 MonoBehaviour:
@@ -22604,7 +22606,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: " SPIRIT CONTROL SCHEME:\n\n WASD / Arrow Keys : Movement\n Left Shift
-    - Descend\n Space Bar - Ascend\n\n  Mouse - Look\n  LMB - Attack\n"
+    - Descend\n Space Bar - Ascend\n Left Control - Block \n\n Mouse - Look\n LMB
+    - Strong arm attack\n RMB - Weak arm attack\n Middle Mouse Button - Power Attack\n "
 --- !u!222 &1313054385
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24718,7 +24721,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402648280
 GameObject:
@@ -26153,7 +26156,7 @@ Transform:
   - {fileID: 1030513237}
   - {fileID: 1936639333}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1479612022
 MonoBehaviour:
@@ -30272,7 +30275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1699978501
 MonoBehaviour:

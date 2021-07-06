@@ -67,7 +67,7 @@ public class DemonBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 //reduce health
-                demonHealth -= 0; //make it 5
+                demonHealth -= 5; //make it 5
                 if (demonHealth < 0)
                     demonHealth = 0;
                 //update attack queue of combat director
@@ -80,7 +80,7 @@ public class DemonBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 //reduce health
-                demonHealth -= 0; //make it 10
+                demonHealth -= 10; //make it 10
                 if (demonHealth < 0)
                     demonHealth = 0;
                 //update attack queue of combat director
@@ -112,7 +112,7 @@ public class DemonBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 //reduce health
-                demonHealth -= 0; //make it 5
+                demonHealth -= 5; //make it 5
                 if (demonHealth < 0)
                     demonHealth = 0;
                 //update attack queue of combat director
@@ -125,7 +125,7 @@ public class DemonBeenHit : MonoBehaviour
             {
                 beenHit = true;
                 //reduce health
-                demonHealth -= 0; //make it 10
+                demonHealth -= 10; //make it 10
                 if (demonHealth < 0)
                     demonHealth = 0;
                 //update attack queue of combat director

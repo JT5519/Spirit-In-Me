@@ -159,7 +159,7 @@ public class StoryController : MonoBehaviour
         giveTip1 = 0;
         examineTip = 0;
         waitForInstructionFinish = 0;
-        combatHasBegun = true;
+        combatHasBegun = false;//-------------------------------------------------------------------
         penguinApproach = 0;
         demonTrails = 0;
         demonWarning = 0;
@@ -169,7 +169,7 @@ public class StoryController : MonoBehaviour
         duringFightDialogues = 0;
         respawn = 0;
         monologuing = false;
-        playerManager.transformEnabled = true; //in phase 1, player cant turn into spirit yet
+        playerManager.transformEnabled = false; //in phase 1, player cant turn into spirit yet
 
         demonRoutine = null;
         hunterRoutine = null;
@@ -191,8 +191,8 @@ public class StoryController : MonoBehaviour
         demonTrig.SetActive(false);
         cornerTrig.SetActive(false);
         //change to false the next two ones 
-        demonHTP.SetActive(true);
-        demonBehaviorScript.enabled = true;
+        demonHTP.SetActive(false);
+        demonBehaviorScript.enabled = false;
         exitGame = false;
     }
     void Start()
@@ -1289,6 +1289,7 @@ public class StoryController : MonoBehaviour
         cinematicCam.transform.SetParent(null);
         demonBehaviorScript.enabled = true;
         //fight begins
+        switchLighting.SetToDay(); //light changed back to normal to better see demon -----------------------------------------------
         moveEnabled = true;
         playerManager.transformEnabled = true;
         monologuing = false;
@@ -1605,6 +1606,8 @@ public class StoryController : MonoBehaviour
         }
         //demon death
         Destroy(demonHTP);
+        combatDirector.SetActive(false);
+        combatHasBegun = false;
         yield return new WaitForSeconds(2f);
         //light is normal again
         switchLighting.SetToDay();
