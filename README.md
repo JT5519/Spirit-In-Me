@@ -51,6 +51,16 @@ Some factors have long term effects. For example if the high damage taken factor
 <img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
 
 CD - Consecutive Disappearances<br/>
+
+## Attack Selection Function
+In the behavior tree, in most places an attack probability is defined. The attack selection function uses this probability to decide whether to attack or not, and if it does attack then what attack to commit. Each attack that can be commited for the given range (distance between AI and player), has equal probability, except the special attack that depends on number of times the player has evaded the AI. Its probability rises with the number of consecutive evades committed. 
+
+* Parameter: Probability of attack
+* Checks distance to eliminate attacks out of range
+* Decides attacks based on probabilities assigned to each attack
+* Special attack probability depends on consecutive evades 
+* Special attack probability =  Min(consecutive evades * 14, 100)
+
 That explains the enemy AI working in detail.
 
 ## Some other games by me
