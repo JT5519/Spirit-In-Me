@@ -44,7 +44,7 @@ Hierarchical factors affecting enemy STATE: (if two factors are true together, t
 
 Some factors have long term effects. For example if the high damage taken factor flag is set to true but the next moment it is set to false, the AI should not just forget that it had taken high damage just a moment ago. So while the 'factor' may become false, the 'effect' once set true, only becomes false after a decided time has passed. Consequently the state of the AI is what the effect demands it to be for that entire duration. 
 
-##Layer 2 - Behavior Layer
+## Layer 2 - Behavior Layer
 * Changes moment to moment
 * Influenced by layer 1 STATE, similar to emotions influencing behavior
 
