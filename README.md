@@ -50,6 +50,8 @@ Some factors have long term effects. For example if the high damage taken factor
 
 <img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
 
+That explains the enemy AI working in detial.
+
 ## Some other games by me
 * [FPPPS - An FPS game](https://github.com/JT5519/First-FPS)
 * [H.A.B.R.O.S.I.P - HyperActive Ball Rolls On a Seizure Inducing Platform](https://github.com/JT5519/Roller-Madness)
