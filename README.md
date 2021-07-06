@@ -47,9 +47,9 @@ Some factors have long term effects. For example if the high damage taken factor
 ## Layer 2 - Behavior Layer
 * Changes moment to moment
 * Influenced by layer 1 STATE, similar to emotions influencing behavior
-
-<img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
+<br/>
 *Click image for clarity <br/>
+<img src="Snaps/BehaviorTree.png" width="1000" alt="boo">
 CD - Consecutive Disappearances<br/>
 
 ## Attack Selection Function
