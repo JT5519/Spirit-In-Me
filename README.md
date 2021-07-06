@@ -1,5 +1,5 @@
 # Spirit-In-Me
-
+Click [here]() to play the game on a GitHub page created for this game.
 
 # Game Details
 * Survival/Action Horror
