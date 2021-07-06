@@ -18,13 +18,13 @@ The enemy AI behavior is implemented by a 2 layer behavior system. Layer 1 is th
 
 ## Enemy AI Mechanics
 ### MOVEMENT
-Chase: Chases the player to attack at close range
-Hover: Hover in position
-Back-off: Try to distance itself from the player
+* Chase: Chases the player to attack at close range
+* Hover: Hover in position
+* Back-off: Try to distance itself from the player
 
 ### ATTACKS
-Ranged Attack: Enemy shoots a projectile that can curve to a certain degree to hit the player
-Melee Attacks: A horn attack with moderate range, A close range melee attack, A special attack 
+* Ranged Attack: Enemy shoots a projectile that can curve to a certain degree to hit the player
+* Melee Attacks: A horn attack with moderate range, A close range melee attack, A special attack 
 
 ### DISAPPEARING:
 Demon can disappear and reappear as it sees fit to escape player and to carry out special attacks.
