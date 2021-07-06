@@ -30,8 +30,8 @@ The enemy AI behavior is implemented by a 2 layer behavior system. Layer 1 is th
 Demon can disappear and reappear as it sees fit to escape player and to carry out special attacks.
 
 ## Layer 1 - State Layer
-*Three states: Aggressive, Balanced, Distanced
-*Does not change moment to moment, changes with change in factors affecting it.
+* Three states: Aggressive, Balanced, Distanced
+* Does not change moment to moment, changes with change in factors affecting it.
 
 Hierarchical factors affecting enemy STATE: (if two factors are true together, the factor higher in the list decides the state)
 * Low Health
