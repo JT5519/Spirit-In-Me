@@ -1,5 +1,5 @@
 # Spirit-In-Me
-Click [here](https://jt5519.github.io/Spirit-In-Me/) to play the game on a GitHub page created for this game.(The game textures have been scaled down to a maximum size of 256 to keep the game file under 100mb due to github limitation. So excuse the lower texture quality :)) 
+Click [here](https://jt5519.github.io/Spirit-In-Me/) to play the game on a GitHub page created for this game. The game textures have been scaled down to a maximum size of 256 to keep the game file under 100mb due to github limitation. So excuse the lower texture quality :)
 
 # Game Details
 * Survival/Action Horror
