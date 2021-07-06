@@ -16,17 +16,17 @@ Click [here](https://jt5519.github.io/Spirit-In-Me-Game/index.html) to play the 
 # Enemy AI Behavior
 The enemy AI behavior is implemented by a 2 layer behavior system. Layer 1 is the state (similar to emotional state in humans) layer and is less volatile and does not change moment to moment. Layer 2 is the behavior layer that controls the moment to moment actions of the AI, and this layer is influenced by layer 1.
 
-##Enemy AI Mechanics
-###MOVEMENT
+## Enemy AI Mechanics
+### MOVEMENT
 Chase: Chases the player to attack at close range
 Hover: Hover in position
 Back-off: Try to distance itself from the player
 
-###ATTACKS
+### ATTACKS
 Ranged Attack: Enemy shoots a projectile that can curve to a certain degree to hit the player
 Melee Attacks: A horn attack with moderate range, A close range melee attack, A special attack 
 
-###DISAPPEARING:
+### DISAPPEARING:
 Demon can disappear and reappear as it sees fit to escape player and to carry out special attacks.
 
 
